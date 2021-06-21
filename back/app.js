@@ -30,7 +30,7 @@ db.sequelize
     .catch(error => {
         console.log('Unable to connect to the database : ', error);
     })
-    
+
 // ROUTES
 app.use('/images', express.static(path.join(__dirname, 'images')));//Download images from 'images' directory 
 
