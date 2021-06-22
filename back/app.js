@@ -35,11 +35,9 @@ db.sequelize
 app.use('/images', express.static(path.join(__dirname, 'images')));//Download images from 'images' directory 
 
 // app.use('/api', require('./routes/auth'));
-const authRoutes = require("./routes/auth");
-app.use('/api/auth', authRoutes);
-
-app.use((req, res) => {
-   res.json({ message: 'Votre requête a bien été reçue !' }); 
-});
+// const authRoutes = require("./routes/auth");
+// app.use('/api/auth', authRoutes);
+const userRoutes = require('./routes/user');
+app.use('/api/user', userRoutes);
 
 module.exports = app;
