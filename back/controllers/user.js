@@ -64,7 +64,7 @@ exports.login = (req, res, next) => {
                 bcrypt.compare(req.body.password, user.password)
                     .then(isValid => {
                         if (!isValid) {
-                            return res.status(401).json({ error: 'Mot de passe inccorrect !' })
+                            return res.status(401).json({ error: 'Mot de passe incorrect !' })
                         }
                         res.status(200).json({
                             userId: user.id,
@@ -126,13 +126,13 @@ exports.updateProfile = (req, res, next) => {
             if (user) {
                 db.User.update({ ...userObject, id: id }, { where: { id: id } })
                     .then(() => res.status(200).json({ ...userObject, message: 'Votre profil a bien été modifié !' }))
-                    .catch(error => res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' }))
+                    .catch(error => res.status(400).json({ error: 'Une erreur s\'est produite !' }))
             }
             else {
                 res.status(404).json({ error: 'Utilisateur non trouvé' });
             }
         })
-        .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
+        .catch(error => res.status(500).json({ error: 'Une erreur s\'est produite !' }));
 }
 
 
