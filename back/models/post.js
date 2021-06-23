@@ -6,15 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
       models.Post.belongsTo(models.User, {
-        foreignKey: 'ownerId'
+        foreignKey: 'ownerId',
+        as: 'owner'
       })
     }
   };
   Post.init({
-    ownerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     content: {
       type: DataTypes.STRING,
       allowNull: false,

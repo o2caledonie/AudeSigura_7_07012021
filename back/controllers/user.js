@@ -42,27 +42,36 @@ exports.signup = (req, res, next) => {
                                     message: 'Votre compte a bien été créé !'
                                 })
                             })
-                            .catch(error => res.status(400).json({ error: 'Une erreur s\'est produite, votre compte n\'a pas été créé' }))
+                            .catch((error) => {
+                                console.log(error)
+                                res.status(400).json({ error: 'Une erreur s\'est produite, votre compte n\'a pas été créé' })
+                            })
                     })
-                    .catch(error => res.status(501).json({ error: 'Une erreur s\'est produite' }))
+                    .catch((error) => {
+                        console.log(error)
+                        res.status(501).json({ error: 'Une erreur s\'est produite' })
+                    })
             } else {
                 res.status(409).json({ error: 'Cet utilisateur existe déjà ' })
             }
         })
 
-        .catch(error => res.status(500).json({ error }))
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({ error })
+        })
 };
 
 exports.login = (req, res, next) => {
     db.User.findOne({
         where: { email: req.body.email }
     })
-        .then(user => {
+        .then((user) => {
             // Checks if the searched user exists
             if (user) {
                 // Compare the password of the recovered user with the password entered in the login form
                 bcrypt.compare(req.body.password, user.password)
-                    .then(isValid => {
+                    .then((isValid) => {
                         if (!isValid) {
                             return res.status(401).json({ error: 'Mot de passe incorrect !' })
                         }
@@ -80,12 +89,18 @@ exports.login = (req, res, next) => {
                             )
                         });
                     })
-                    .catch(error => res.status(400).json({ error: 'Une erreur est survenue' }))
+                    .catch((error) => {
+                        console.log(error)
+                        res.status(400).json({ error: 'Une erreur est survenue' })
+                    })
             } else {
                 return res.status(404).json({ error: 'Cet utilisateur n\'existe pas, veuillez créer un compte' })
             }
         })
-        .catch(error => res.status(400).json({ error: 'Une erreur s\est produite' }))
+        .catch((error) => {
+            console.log(error)
+            res.status(400).json({ error: 'Une erreur s\est produite' })
+        })
 };
 
 exports.getUserProfile = (req, res, next) => {
@@ -94,14 +109,17 @@ exports.getUserProfile = (req, res, next) => {
         attributes: ['id', 'userName', 'email', 'isAdmin', 'avatar'],
         where: { id: id }
     })
-        .then(user => {
+        .then((user) => {
             if (user) {
                 res.status(200).json(user);
             } else {
                 res.status(404).json({ error: 'Utilisateur non trouvé' })
             }
         })
-        .catch(error => res.status(404).json({ error: 'Une erreur s\'est produite !' }));
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({ error: 'Une erreur s\'est produite !' })
+        });
 }
 
 exports.updateProfile = (req, res, next) => {
@@ -123,7 +141,7 @@ exports.updateProfile = (req, res, next) => {
     db.User.findOne({
         where: { id: id },
     })
-        .then(user => {
+        .then((user) => {
             if (user) {
                 db.User.update({ ...userObject, id: id }, { where: { id: id } })
                     .then(() => res.status(200).json({ ...userObject, message: 'Votre profil a bien été modifié !' }))
@@ -133,7 +151,10 @@ exports.updateProfile = (req, res, next) => {
                 res.status(404).json({ error: 'Utilisateur non trouvé' });
             }
         })
-        .catch(error => res.status(500).json({ error: 'Une erreur s\'est produite !' }));
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({ error: 'Une erreur s\'est produite !' })
+        });
 }
 
 
@@ -146,17 +167,23 @@ exports.deleteAccount = (req, res, next) => {
         attributes: ['id'],
         where: { id: id }
     })
-        .then(user => {
+        .then((user) => {
             if (user) {
                 db.User.destroy({
                     where: { id: id }
                 })
                     .then(() => res.status(200).json({ message: 'Votre compte a été supprimé' }))
-                    .catch(() => res.status(500).json({ error: 'Une erreur s\'est produite !' }));
+                    .catch((error) => {
+                        console.log(error)
+                        res.status(500).json({ error: 'Une erreur s\'est produite !' })
+                    });
 
             } else {
                 return res.status(404).json({ error: 'Utilisateur non trouvé' })
             }
         })
-        .catch(error => res.status(500).json({ error: 'Une erreur s\'est produite !' }));
+        .catch((error) => {
+            console.log(error)
+            res.status(500).json({ error: 'Une erreur s\'est produite !' })
+        });
 }

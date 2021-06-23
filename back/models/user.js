@@ -4,9 +4,15 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    
+
     static associate(models) {
-models.User.hasMany(models.Post);    }
+      models.User.hasMany(models.Post, {
+        foreignKey: 'ownerId',
+        as: 'owner',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+    }
   };
   User.init({
     userName: {
@@ -26,7 +32,7 @@ models.User.hasMany(models.Post);    }
     avatar: {
       type: DataTypes.STRING,
       allowNull: true,
-    },  
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
