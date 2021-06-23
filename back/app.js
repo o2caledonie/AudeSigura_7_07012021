@@ -34,11 +34,10 @@ db.sequelize
 // ROUTES
 app.use('/images', express.static(path.join(__dirname, 'images')));//Download images from 'images' directory 
 
-// app.use('/api', require('./routes/auth'));
-// const authRoutes = require("./routes/auth");
-// app.use('/api/auth', authRoutes);
 const userRoutes = require('./routes/user');
 app.use('/api/user', userRoutes);
-// app.use('/api/post', postRoutes);
+
+const postRoutes = require('./routes/post');
+app.use('/api/post', postRoutes);
 
 module.exports = app;

@@ -24,9 +24,10 @@ module.exports = async (req, res, next) => {
             console.log(req.user); 
             next();
         }
-    } catch {
+    } catch (error) {
+        console.error(error);
         res.status(401).json({
-            error: new Error('Invalid request!')
+            error: 'Invalid request!'
         });
     }
 };

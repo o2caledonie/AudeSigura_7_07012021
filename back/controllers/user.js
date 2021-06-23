@@ -109,7 +109,7 @@ exports.updateProfile = (req, res, next) => {
     const id = req.params.id;
     console.log(req.user.id)
     console.log(req.user.isAdmin)
-    //Check if the connected user is admin or if its id matches the one is the request
+    //Check if the connected user is admin or if its id matches the one in the request
     if (req.user.id != id && req.user.isAdmin === false) {
         return res.status(403).json({ error: 'Vous n\'êtes pas autorisé à effectuer cette action' })
     }
