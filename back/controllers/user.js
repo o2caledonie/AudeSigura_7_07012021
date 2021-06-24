@@ -136,7 +136,8 @@ exports.updateProfile = (req, res, next) => {
     const userObject = req.file ?
         {
             ...req.body.userId,
-            avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+            userName: req.body.userName,
+            avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         } : { ...req.body }
    
     db.User.findOne({
@@ -146,7 +147,7 @@ exports.updateProfile = (req, res, next) => {
             if (user) {
                 db.User.update({ ...userObject, id: id }, { where: { id: id } })
                     .then(() => res.status(200).json({ ...userObject, message: 'Votre profil a bien été modifié !' }))
-                    .catch(error => res.status(400).json({ error: 'Une erreur s\'est produite !' }))
+                    .catch((error) => res.status(400).json({ error: 'Une erreur s\'est produite !' }))
             }
             else {
                 res.status(404).json({ error: 'Utilisateur non trouvé' });

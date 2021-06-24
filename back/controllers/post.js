@@ -31,7 +31,7 @@ exports.updatePost = (req, res, next) => {
     const content = req.body.content;
     const postObject = req.file ?
         {
-            content: req.body.content,
+            content: content,
             image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
         } : { ...req.body }
 
