@@ -72,7 +72,7 @@ exports.deletePost = async (req, res, next) => {
     }
  
     if (req.user.id != post.ownerId && req.user.isAdmin != true) {
-        return res.status(403).json({ error: 'Vous n\'êtes pas autorisé à effectuer cette action' })
+        return res.status(403).json({ error: 'Vous n\'êtes pas autorisé(e) à effectuer cette action' })
     }
 
     if (post.image != null) {
@@ -93,9 +93,9 @@ exports.deletePost = async (req, res, next) => {
             await db.Post.destroy({
                 where: { id: req.params.id }
             });
-            return res.status(200).json({ message: 'Votre message a été supprimé' });
+            return res.status(200).json({ message: 'Votre publication a bien été supprimée' });
         } catch (error) {
-            return res.status(500).json({ error: 'une erreur s\'est produite !' });
+            return res.status(500).json({ error: 'Une erreur s\'est produite ! Votre publication n\'a pas été supprimée' });
         }
     }
 }
