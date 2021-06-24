@@ -19,7 +19,7 @@ exports.createPost = (req, res, next) => {
     })
     post.save()
         .then(() => {
-            res.status(201).json({ message: 'Votre message a bien été créé !' })
+            res.status(201).json({ message: 'Votre publication a bien été créée !' })
         })
         .catch((error) => {
             console.log(error)
