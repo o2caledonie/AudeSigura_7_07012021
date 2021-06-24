@@ -13,7 +13,7 @@ const userCtrl = require("../controllers/user");
 router.post("/signup", userCtrl.signup)
 router.post("/login", userCtrl.login)
 router.get('/:id', auth, userCtrl.getUserProfile);
-router.put('/:id', auth, multer, userCtrl.updateProfile);
+router.patch('/:id', auth, multer, userCtrl.updateProfile);
 router.delete('/:id', auth, userCtrl.deleteAccount);
 
 //Export router

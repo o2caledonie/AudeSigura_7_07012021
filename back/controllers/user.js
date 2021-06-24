@@ -76,6 +76,7 @@ exports.login = (req, res, next) => {
                             return res.status(401).json({ error: 'Mot de passe incorrect !' })
                         }
                         res.status(200).json({
+                            message: 'Vous êtes bien connecté !',
                             userId: user.id,
                             userName: user.userName,
                             avatar: user.avatar,
