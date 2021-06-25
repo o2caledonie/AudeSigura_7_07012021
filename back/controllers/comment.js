@@ -26,6 +26,8 @@ exports.createComment = async (req, res, next) => {
 
 exports.getAllComments = async (req, res, next) => {
     const comments = await db.Comment.findAll({
+        order: [['updatedAt', "ASC"], ['createdAt', "ASC"]],
+        where: { postId: req.params.postId },
         include: [{
             model: db.User,
             as: 'owner',
