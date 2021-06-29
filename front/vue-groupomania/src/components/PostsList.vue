@@ -1,16 +1,124 @@
 <template>
-    <div id="posts-list">
-        <div class="displayPosts" v-for="post in posts" :key="post.postId">
+  <div id="posts-list">
+    <div class="displayPosts" v-for="post in posts" :key="post.postId">
+      <div class="card m-3">
+        <div class="card-header d-flex">
+          <Avatar
+            v-if="post.owner.avatar == 'null'"
+            :src="'user-circle-solid.svg'"
+            class="avatar"
+          />
+          <Avatar v-else :src="post.owner.avatar" class="avatar" />
+
+          <p class="card-text mx-3">
+            {{ post.owner.userName }}
+          </p>
+
+          <p class="card-text ms-auto px-3">
+            <small class="text-muted">
+              Publié le {{ dateFormat(post.createdAt) }}
+            </small>
+          </p>
         </div>
-    </div>    
+        <div class="card-body p-0">
+          <p class="card-text text-start mx-3 mt-2">
+            {{ post.content }}
+          </p>
+          <PostImage v-if="post.image == 'null'" class="post-image" />
+          <PostImage
+            v-else
+            :src="post.image"
+            class="post-image"
+            alt="Image de la publication"
+          />
+        </div>
+        <div>
+          <Comments />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+import moment from "moment";
+import { Notyf } from "notyf";
+import "notyf/notyf.min.css";
+import Avatar from "../components/Avatar.vue";
+import PostImage from "../components/PostImage.vue";
+import Comments from "../components/Comments.vue";
+
 export default {
-    name: 'PostsList',    
-}
+  name: "PostsList",
+  components: {
+    Avatar,
+    PostImage,
+    Comments,
+  },
+  data() {
+    return {
+      userId: localStorage.getItem("userId"),
+      username: localStorage.getItem("username"),
+      isAdmin: localStorage.getItem("isAdmin"),
+      imageProfile: localStorage.getItem("imageProfile"),
+      posts: [],
+      post: "",
+      imagePost: "",
+      imagePreview: null,
+      content: "",
+      contentmodifyPost: "",
+      comments: [],
+      contentComment: "",
+      like: false,
+      postLikes: [],
+      revele: false,
+      showComment: false,
+      showCreateComment: false,
+      showInputModify: false,
+    };
+  },
+  created() {
+    this.displayPost();
+    this.notyf = new Notyf({
+      duration: 2000,
+      position: {
+        x: "center",
+        y: "top",
+      },
+    });
+  },
+  methods: {
+    displayPost() {
+      axios
+        .get("http://localhost:3000/api/post", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.posts = response.data;
+        })
+        .catch((error) => {
+          const msgerror = error.response.data;
+          this.notyf.error(msgerror.error);
+        });
+    },
+
+    // date and time
+    dateFormat(date) {
+      if (date) {
+        return moment(String(date)).format("DD/MM/YYYY à hh:mm");
+      }
+    },
+  },
+};
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.post-image {
+  width: 100%;
+  height: auto;
+}
 </style>
