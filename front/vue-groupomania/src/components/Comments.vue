@@ -1,17 +1,5 @@
 <template>
   <div>
-    <!-- <div class="input-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="..."
-        aria-label="écrivez votre commentaire"
-        aria-describedby="écrire un commentaire"
-      />
-      <button class="btn btn-outline-danger" type="button" id="button-addon2">
-        Commenter
-      </button>
-    </div> -->
 
     <form @submit.prevent="createComment" aria-label="Nouveau message">
       <div class="newComment__content">
@@ -110,6 +98,8 @@ export default {
     });
   },
   methods: {
+
+     
     createComment() {
       const postId = this.post.id;
       console.log(this.content);
@@ -122,7 +112,7 @@ export default {
         })
         .then(() => {
           this.notyf.success("Votre publication a bien été créée !");
-          window.location.reload();
+    
         })
         .catch((error) => {
           const msgerror = error.response.data;

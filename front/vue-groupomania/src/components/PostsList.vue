@@ -46,8 +46,6 @@
 <script>
 // import axios from "axios";
 import moment from "moment";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
 import Avatar from "../components/Avatar.vue";
 import PostImage from "../components/PostImage.vue";
 import Comments from "../components/Comments.vue";
@@ -78,27 +76,15 @@ export default {
       contentmodifyPost: "",
       comments: [],
       contentComment: "",
-      like: false,
-      postLikes: [],
       revele: false,
       showComment: false,
       showCreateComment: false,
       showInputModify: false,
     };
   },
-  created() {
-    this.notyf = new Notyf({
-      duration: 2000,
-      position: {
-        x: "center",
-        y: "top",
-      },
-    });
-  },
   methods: {
 
-    handlePostDeleted(payload) {
-        console.log(payload)
+    handlePostDeleted() {
         this.$emit('post-deleted')
     },
 
