@@ -20,7 +20,7 @@
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseOne"
+            :data-bs-target="buildAccordionIdSelector(post)"
             aria-expanded="false"
             aria-controls="flush-collapseOne"
           >
@@ -28,14 +28,15 @@
             <i class="far fa-comment-dots mx-2"></i>
           </button>
         </h2>
+        
         <div
-          id="flush-collapseOne"
+          :id="buildAccordionId(post)"
           class="accordion-collapse collapse"
           aria-labelledby="flush-headingOne"
           data-bs-parent="#accordionFlushExample"
         >
           <div class="accordion-body">
-              <CommentsList/>
+              <CommentsList :post="post"/>
           </div>
         </div>
       </div>
@@ -45,7 +46,6 @@
 
 <script>
 // import axios from "axios";
-import moment from "moment";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import CommentsList from "../components/CommentsList.vue";
@@ -55,6 +55,10 @@ export default {
   components: {
     CommentsList
   },
+  props: {
+      post: {type : Object}
+  },
+  
   data() {
     return {
       userId: localStorage.getItem("userId"),
@@ -62,7 +66,6 @@ export default {
       isAdmin: localStorage.getItem("isAdmin"),
       imageProfile: localStorage.getItem("imageProfile"),
       posts: [],
-      post: "",
       imagePost: "",
       imagePreview: null,
       content: "",
@@ -85,13 +88,14 @@ export default {
     });
   },
   methods: {
-    
-    // Display publication date and time
-    dateFormat(date) {
-      if (date) {
-        return moment(String(date)).format("DD/MM/YYYY à hh:mm");
-      }
+    buildAccordionId(post) {
+        return `postAccordionComments-${post.id}`
     },
+
+    buildAccordionIdSelector(post) {
+        return `#${this.buildAccordionId(post)}`
+    },
+
   },
 };
 </script>
