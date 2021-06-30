@@ -1,7 +1,7 @@
 <template>
   <div id="posts-list">
     <div class="displayPosts" v-for="post in posts" :key="post.postId">
-      <div class="card m-3">
+      <div class="card m-5">
         <div class="card-header d-flex">
           <Avatar
             v-if="post.owner.avatar == 'null'"

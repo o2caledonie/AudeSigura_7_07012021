@@ -1,5 +1,5 @@
 <template>
-  <div id="comments-list">
+  <div id="comments-list" >
     <div
       class="displayComments"
       v-bind="post"

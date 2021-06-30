@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="input-group">
+    <!-- <div class="input-group">
       <input
         type="text"
         class="form-control"
@@ -11,13 +11,33 @@
       <button class="btn btn-outline-danger" type="button" id="button-addon2">
         Commenter
       </button>
-    </div>
+    </div> -->
+
+    <form @submit.prevent="createComment" aria-label="Nouveau message">
+      <div class="newComment__content">
+        <textarea
+          v-model="content"
+          class="form-control"
+          name="message"
+          id="message"
+          placeholder="Ecrivez votre commentaire ..."
+          aria-label="Rédiger un nouveau commentaire"
+        />
+        <button
+          type="submit"
+          class="btn btn-outline-danger"
+          aria-label="Publier le message"
+        >
+          Commenter <i class="far fa-paper-plane"></i>
+        </button>
+      </div>
+    </form>
 
     <div class="accordion accordion-flush" id="accordionFlushExample">
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
           <button
-            @click="showComments=!showComments"
+            @click="showComments = !showComments"
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
@@ -29,7 +49,7 @@
             <i class="far fa-comment-dots mx-2"></i>
           </button>
         </h2>
-        
+
         <div
           :id="buildAccordionId(post)"
           class="accordion-collapse collapse"
@@ -38,7 +58,7 @@
           ref="accordionContent"
         >
           <div class="accordion-body">
-              <CommentsList :post="post" v-if="showComments"/>
+            <CommentsList :post="post" v-if="showComments" />
           </div>
         </div>
       </div>
@@ -47,7 +67,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import CommentsList from "../components/CommentsList.vue";
@@ -55,12 +75,12 @@ import CommentsList from "../components/CommentsList.vue";
 export default {
   name: "Comments",
   components: {
-    CommentsList
+    CommentsList,
   },
   props: {
-      post: {type : Object}
+    post: { type: Object },
   },
-  
+
   data() {
     return {
       userId: localStorage.getItem("userId"),
@@ -90,15 +110,33 @@ export default {
     });
   },
   methods: {
+    createComment() {
+      const postId = this.post.id;
+      console.log(this.content);
+      const contentComment = { content: this.content };
+      axios
+        .post("http://localhost:3000/api/comment/" + postId, contentComment, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then(() => {
+          this.notyf.success("Votre publication a bien été créée !");
+          window.location.reload();
+        })
+        .catch((error) => {
+          const msgerror = error.response.data;
+          this.notyf.error(msgerror.error);
+        });
+    },
 
     buildAccordionId(post) {
-        return `postAccordionComments-${post.id}`
+      return `postAccordionComments-${post.id}`;
     },
 
     buildAccordionIdSelector(post) {
-        return `#${this.buildAccordionId(post)}`
+      return `#${this.buildAccordionId(post)}`;
     },
-
   },
 };
 </script>
