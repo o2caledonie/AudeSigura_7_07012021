@@ -25,20 +25,7 @@ export default {
   data() {
     return {
       userId: localStorage.getItem("userId"),
-      username: localStorage.getItem("username"),
       isAdmin: localStorage.getItem("isAdmin"),
-      imageProfile: localStorage.getItem("imageProfile"),
-      posts: [],
-      imagePost: "",
-      imagePreview: null,
-      content: "",
-      contentmodifyPost: "",
-      comments: [],
-      contentComment: "",
-      revele: false,
-      showCreateComment: false,
-      showInputModify: false,
-      showComments: false,
     };
   },
   created() {
@@ -62,7 +49,8 @@ export default {
           },
         })
         .then(() => {
-          this.notyf.success("Votre publication a bien été modifié !");
+          this.notyf.success("Votre publication a bien été supprimée !");
+          this.$emit('post-deleted')
         })
         .catch((error) => {
           const msgerror = error.response.data;

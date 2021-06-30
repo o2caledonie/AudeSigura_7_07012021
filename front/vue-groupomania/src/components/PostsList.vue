@@ -33,8 +33,7 @@
           />
         </div>
         <div>
-            <DeletePostBtn :post="post" />
-            <i v-if="userId == post.ownerId || isAdmin == 'true'" v-on:click="deletePost(post.id)" class="btn btn-outline-danger far fa-trash-alt" aria-label="Supprimer le message"></i>
+            <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
         </div>
         <div>
           <Comments :post="post" />
@@ -45,7 +44,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import moment from "moment";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -63,13 +62,16 @@ export default {
     Comments,
     DeletePostBtn
   },
+  props: {
+      posts: { type : Object } 
+  },
+
   data() {
     return {
       userId: localStorage.getItem("userId"),
       username: localStorage.getItem("username"),
       isAdmin: localStorage.getItem("isAdmin"),
       imageProfile: localStorage.getItem("imageProfile"),
-      posts: [],
       imagePost: "",
       imagePreview: null,
       content: "",
@@ -85,7 +87,6 @@ export default {
     };
   },
   created() {
-    this.displayPost();
     this.notyf = new Notyf({
       duration: 2000,
       position: {
@@ -95,21 +96,10 @@ export default {
     });
   },
   methods: {
-    displayPost() {
-      axios
-        .get("http://localhost:3000/api/post", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.posts = response.data;
-        })
-        .catch((error) => {
-          const msgerror = error.response.data;
-          this.notyf.error(msgerror.error);
-        });
+
+    handlePostDeleted(payload) {
+        console.log(payload)
+        this.$emit('post-deleted')
     },
 
     // date and time
