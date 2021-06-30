@@ -12,9 +12,22 @@ exports.createPost = (req, res, next) => {
     if (content == null || content == '') {
         return res.status(400).json({ error: 'Ce champ doit être renseigné' });
     }
+
+
+
+    let image = null;
+    if (req.file) {
+        image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } else {
+        if (req.body.image.length > 0) {
+            image = req.body.image
+        }   
+    }
+    
+
     const post = db.Post.build({
         content: req.body.content,
-        image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : req.body.image,
+        image: image,
         ownerId: id
     })
     post.save()
@@ -64,9 +77,6 @@ exports.deletePost = async (req, res, next) => {
         where: { id: req.params.id },
     });
 
-    console.log(req.user.id)
-    console.log(post.ownerId)
-
     if (post === null) {
         return res.status(404).json({error: "Post non trouvé"})
     }
@@ -75,10 +85,15 @@ exports.deletePost = async (req, res, next) => {
         return res.status(403).json({ error: 'Vous n\'êtes pas autorisé(e) à effectuer cette action' })
     }
 
+     console.log("bugpostImg", post)
+
+     
     if (post.image != null) {
         const filename = post.image.split('/images/')[1];
         try {
-            fs.unlinkSync(`images/${filename}`)
+            if (fs.existsSync(`images/${filename}`)) {
+                fs.unlinkSync(`images/${filename}`)
+            }
             await db.Post.destroy({
                 where: { id: req.params.id }
             });

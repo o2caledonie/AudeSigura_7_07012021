@@ -33,6 +33,10 @@
           />
         </div>
         <div>
+            <DeletePostBtn :post="post" />
+            <i v-if="userId == post.ownerId || isAdmin == 'true'" v-on:click="deletePost(post.id)" class="btn btn-outline-danger far fa-trash-alt" aria-label="Supprimer le message"></i>
+        </div>
+        <div>
           <Comments :post="post" />
         </div>
       </div>
@@ -48,6 +52,8 @@ import "notyf/notyf.min.css";
 import Avatar from "../components/Avatar.vue";
 import PostImage from "../components/PostImage.vue";
 import Comments from "../components/Comments.vue";
+import DeletePostBtn from "../components/DeletePostBtn.vue";
+
 
 export default {
   name: "PostsList",
@@ -55,6 +61,7 @@ export default {
     Avatar,
     PostImage,
     Comments,
+    DeletePostBtn
   },
   data() {
     return {
