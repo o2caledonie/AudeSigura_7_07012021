@@ -33,7 +33,7 @@
           />
         </div>
         <div>
-          <Comments />
+          <Comments :post="post" />
         </div>
       </div>
     </div>
@@ -63,7 +63,6 @@ export default {
       isAdmin: localStorage.getItem("isAdmin"),
       imageProfile: localStorage.getItem("imageProfile"),
       posts: [],
-      post: "",
       imagePost: "",
       imagePreview: null,
       content: "",

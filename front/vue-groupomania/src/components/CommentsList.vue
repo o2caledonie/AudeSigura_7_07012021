@@ -1,6 +1,12 @@
 <template>
   <div id="comments-list">
-    <div class="displayComments" v-for="comment in comments" :key="comment.id">
+    <div
+      class="displayComments"
+      v-bind="post"
+      v-for="comment in comments"
+      :key="comment.id"
+    >
+      {{ comment.content }}
     </div>
   </div>
 </template>
@@ -13,8 +19,10 @@ import "notyf/notyf.min.css";
 
 export default {
   name: "CommentsList",
-  components: {
-  },
+  components: {},
+  props: {
+    post: { type: Object }
+  }, 
   data() {
     return {
       content: "",
@@ -36,7 +44,8 @@ export default {
   },
   methods: {
     displayComments() {
-        const postId = this.postId;
+      const postId = this.post.id;
+      console.log(this.post.id)
       axios
         .get("http://localhost:3000/api/comment/" + postId, {
           headers: {
@@ -44,8 +53,7 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
-        .then((response) => { 
-        console.log(postId)         
+        .then((response) => {
           this.comments = response.data;
         })
         .catch((error) => {

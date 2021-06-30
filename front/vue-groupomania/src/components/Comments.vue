@@ -17,12 +17,13 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
           <button
+            @click="showComments=!showComments"
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
             :data-bs-target="buildAccordionIdSelector(post)"
             aria-expanded="false"
-            aria-controls="flush-collapseOne"
+            :aria-controls="buildAccordionId(post)"
           >
             Voir les commentaires
             <i class="far fa-comment-dots mx-2"></i>
@@ -34,9 +35,10 @@
           class="accordion-collapse collapse"
           aria-labelledby="flush-headingOne"
           data-bs-parent="#accordionFlushExample"
+          ref="accordionContent"
         >
           <div class="accordion-body">
-              <CommentsList :post="post"/>
+              <CommentsList :post="post" v-if="showComments"/>
           </div>
         </div>
       </div>
@@ -73,9 +75,9 @@ export default {
       comments: [],
       contentComment: "",
       revele: false,
-      showComment: false,
       showCreateComment: false,
       showInputModify: false,
+      showComments: false,
     };
   },
   created() {
@@ -88,6 +90,7 @@ export default {
     });
   },
   methods: {
+
     buildAccordionId(post) {
         return `postAccordionComments-${post.id}`
     },
