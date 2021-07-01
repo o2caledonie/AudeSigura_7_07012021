@@ -40,17 +40,19 @@ export default {
   methods: {
     deleteComment(id) {
       const commentId = id;
-    
+
       axios
         .delete("http://localhost:3000/api/comment/" + commentId, {
           headers: {
-           'Authorization': 'Bearer ' + localStorage.getItem('token'),
-			'Content-Type': 'application/json'
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         })
         .then(() => {
-          this.notyf.success("Votre commentaire a bien été supprimée !");
-          this.$emit('comment-deleted')
+          if (window.confirm("Supprimer le commentaire ?")) {
+            this.notyf.success("Votre commentaire a bien été supprimé !");
+            this.$emit("comment-deleted");
+          }
         })
         .catch((error) => {
           const msgerror = error.response.data;

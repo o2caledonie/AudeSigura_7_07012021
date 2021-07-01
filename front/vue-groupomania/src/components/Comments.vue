@@ -114,7 +114,7 @@ export default {
           },
         })
         .then(() => {
-          this.notyf.success("Votre publication a bien été créée !");
+          this.notyf.success("Votre commentaire a bien été créé !");
           this.resetForm();
           this.fetchComments();
         })

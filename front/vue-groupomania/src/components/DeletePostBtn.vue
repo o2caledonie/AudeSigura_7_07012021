@@ -40,17 +40,19 @@ export default {
   methods: {
     deletePost(id) {
       const postId = id;
-    
+
       axios
         .delete("http://localhost:3000/api/post/" + postId, {
           headers: {
-           'Authorization': 'Bearer ' + localStorage.getItem('token'),
-			'Content-Type': 'application/json'
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         })
         .then(() => {
-          this.notyf.success("Votre publication a bien été supprimée !");
-          this.$emit('post-deleted')
+          if (window.confirm("Supprimer la publication ?")) {
+            this.notyf.success("Votre publication a bien été supprimée !");
+            this.$emit("post-deleted");
+          }
         })
         .catch((error) => {
           const msgerror = error.response.data;
