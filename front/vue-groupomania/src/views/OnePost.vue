@@ -1,17 +1,8 @@
-  
 <template>
   <div id="posts">
     <Navbar />
     <div class="newPost mt-5 mx-auto p-3">
-      <h1>Bonjour, {{ userName }} !</h1>
-      <div class="newPost__photo">
-        <ProfileImage
-          v-if="avatar == 'null'"
-          :src="'user-circle-solid.png'"
-          class="newPost__photo"
-        />
-        <ProfileImage v-else :src="avatar" class="newPost__photo" />
-      </div>
+      
 
       <form @submit.prevent="createPost" aria-label="Nouveau message">
         <div class="newPost__content">
@@ -66,43 +57,34 @@
       </form>
     </div>
 
-    <div class="my-4">
-      <h2>Publications</h2>
-      <PostsList :posts="posts" @post-deleted="fetchPosts " />
-    </div>
     <router-view />
   </div>
 </template>
 
-
-
 <script>
 import axios from "axios";
-import PostsList from "../components/PostsList.vue";
 import Navbar from "../components/Navbar.vue";
-import ProfileImage from "../components/ProfileImage.vue";
 export default {
-  name: "Posts",
+  name: "OnePost",
   components: {
     Navbar,
-    ProfileImage,
-    PostsList,
   },
+  
   inject: ["notyf"],
   data() {
     return {
       userName: localStorage.getItem("userName"),
       isAdmin: localStorage.getItem("isAdmin"),
       avatar: localStorage.getItem("avatar"),
-      post: "",
       image: "",
       imagePreview: null,
       content: "",
       posts: [],
+      post:"",
     };
   },
   created() {
-    this.fetchPosts();
+    this.fetchOnePost();
   },
   methods: {
     
@@ -113,45 +95,16 @@ export default {
       this.imagePreview = null;
     },
 
-    // Create a new post
-    uploadFile() {
-      this.$refs.fileUpload.click();
-    },
-    onFileSelected(event) {
-      this.image = event.target.files[0];
-      this.imagePreview = URL.createObjectURL(this.image);
-    },
-    createPost() {
-      const formData = new FormData();
-      formData.append("content", this.content);
-      formData.append("image", this.image);
+    //Fetch the post to be modified from API
+    fetchOnePost() {
       axios
-        .post("http://localhost:3000/api/post", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then(() => {
-          this.notyf.success("Votre publication a bien été créée !");
-          this.resetForm(), this.fetchPosts();
-        })
-        .catch((error) => {
-          const msgerror = error.response.data;
-          this.notyf.error(msgerror.error);
-        });
-    },
-
-    //Fetch Posts from API
-    fetchPosts() {
-      axios
-        .get("http://localhost:3000/api/post", {
+        .get("http://localhost:3000/api/post/" + this.$route.params.id, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         })
         .then((response) => {
-          this.posts = response.data;
+          this.post = response.data;
         })
         .catch((error) => {
           const msgerror = error.response.data;
@@ -161,7 +114,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped lang="scss">
 .newPost {

@@ -36,6 +36,9 @@
           <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
         </div>
         <div>
+          <UpdatePostBtn :post="post" @post-updated="handlePostUpdated" />
+        </div>
+        <div>
           <Comments :post="post" />
         </div>
       </div>
@@ -50,6 +53,7 @@ import Avatar from "../components/Avatar.vue";
 import PostImage from "../components/PostImage.vue";
 import Comments from "../components/Comments.vue";
 import DeletePostBtn from "../components/DeletePostBtn.vue";
+import UpdatePostBtn from "../components/UpdatePostBtn.vue";
 
 export default {
   name: "PostsList",
@@ -58,9 +62,10 @@ export default {
     PostImage,
     Comments,
     DeletePostBtn,
+    UpdatePostBtn,
   },
   props: {
-    posts: { type: Object },
+    posts: { type: Array },
   },
 
   data() {
@@ -80,6 +85,10 @@ export default {
     //Emit to parent component when post is deleted
     handlePostDeleted() {
       this.$emit("post-deleted");
+    },
+
+    handlePostUpdated() {
+      this.$emit("post-updated");
     },
 
     // date and time

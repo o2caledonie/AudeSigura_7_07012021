@@ -30,6 +30,14 @@ const routes = [
     name: 'Signup',
     component: () => import(/* webpackChunkName: "about" */ '../views/Signup.vue')
   },
+  {
+    path: '/post/:id',
+    name: 'OnePost',
+    component: () => import(/* webpackChunkName: "about" */ '../views/OnePost.vue'),
+    meta: {
+      middleware: auth
+    }
+  },
   
 ]
 
