@@ -3,7 +3,7 @@
   <div id="posts">
     <Navbar />
     <div class="newPost mt-5 mx-auto p-3">
-      <p>Bonjour, {{ userName }} !</p>
+      <h1>Bonjour, {{ userName }} !</h1>
       <div class="newPost__photo">
         <ProfileImage
           v-if="avatar == 'null'"
@@ -66,8 +66,8 @@
       </form>
     </div>
 
-    <div class="mt-4">
-      <h1>Publications</h1>
+    <div class="my-4">
+      <h2>Publications</h2>
       <PostsList :posts="posts" @post-deleted="fetchPosts" />
     </div>
     <router-view />
@@ -78,8 +78,6 @@
 
 <script>
 import axios from "axios";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
 import PostsList from "../components/PostsList.vue";
 import Navbar from "../components/Navbar.vue";
 import ProfileImage from "../components/ProfileImage.vue";
@@ -90,9 +88,9 @@ export default {
     ProfileImage,
     PostsList,
   },
+  inject: ['notyf'],
   data() {
     return {
-      userId: localStorage.getItem("userId"),
       userName: localStorage.getItem("userName"),
       isAdmin: localStorage.getItem("isAdmin"),
       avatar: localStorage.getItem("avatar"),
@@ -100,21 +98,11 @@ export default {
       image: "",
       imagePreview: null,
       content: "",
-      contentmodifyPost: "",
-      revele: false,
-      showInputModify: false,
       posts: [],
     };
   },
   created() {
     this.fetchPosts();
-    this.notyf = new Notyf({
-      duration: 4000,
-      position: {
-        x: "center",
-        y: "top",
-      },
-    });
   },
   methods: {
     resetForm() {

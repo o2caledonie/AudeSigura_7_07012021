@@ -19,19 +19,11 @@
 
 <script>
     import axios from 'axios'
-    import { Notyf } from 'notyf'
-    import 'notyf/notyf.min.css'
     export default {
         name: 'ModaleDeleteAccount',
         props: ['revele', 'displayModale'],
+        inject: ['notyf'],
         created() {
-            this.notyf = new Notyf({
-                duration: 2000,
-                position: {
-                    x: 'center',
-                    y: 'bottom'
-                }
-            });
         },
         methods: {
             // Permet de supprimer le compte

@@ -20,7 +20,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <ModaleLogout v-bind:revele="revele" v-bind:displayModale='displayModale'/>
+                        <ModaleLogout :revele="revele" :displayModale='displayModale'/>
                         <button @click="displayModale" class="nav__links__logoutLink">Déconnexion <i class="fas fa-sign-out-alt"></i></button>    
                     </li>
                 </ul>

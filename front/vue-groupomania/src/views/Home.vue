@@ -53,10 +53,9 @@
 
 <script>
 import axios from 'axios'
-    import { Notyf } from 'notyf'
-    import 'notyf/notyf.min.css'
     export default {
         name: 'Home',
+        inject: ['notyf'],
         data() {
             return {
                 email: '',
@@ -64,13 +63,6 @@ import axios from 'axios'
             }
         },
         created() {
-            this.notyf = new Notyf({
-                duration: 2000,
-                position: {
-                    x: 'center',
-                    y: 'bottom'
-                }
-            });
         }, 
         methods: {
             // Permet de se connecter et de recharger la page sans que l'utilisateur soit déconnecté

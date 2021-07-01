@@ -5,7 +5,7 @@
 			<h1 v-if="user">Bienvenue {{ user.userName }} !</h1>
 
 			<div class="profile">
-				<h2>Vos informations</h2>
+				<h2>Mon profil</h2>
 
 				<div class="profile__photo">
 					<ProfileImage :src="user.avatar" class="profile__photo__image"/>
@@ -28,16 +28,14 @@
 				<button @click="modifyProfile" class="profile__smallButton">Enregister <i class="fas fa-check"></i></button>
 			</div>
 
-			<ModaleDeleteAccount v-bind:revele="revele" v-bind:displayModale='displayModale'/>
-			<button class="profile__bigButton" v-on:click="displayModale">Supprimer mon compte <i class="far fa-trash-alt"></i></button>
+			<ModaleDeleteAccount :revele="revele" :displayModale='displayModale'/>
+			<button class="profile__bigButton" @click="displayModale">Supprimer mon compte <i class="far fa-trash-alt"></i></button>
 		</div>
 	</div>
 </template>
 
 <script>
 	import axios from 'axios'
-	import { Notyf } from 'notyf'
-	import 'notyf/notyf.min.css'
 	import Navbar from '@/components/Navbar.vue'
 	import ModaleDeleteAccount from '@/components/ModaleDeleteAccount.vue'
 	import ProfileImage from '../components/ProfileImage.vue'
@@ -48,6 +46,7 @@
 			ModaleDeleteAccount,
 			ProfileImage
 		},
+		inject: ['notyf'],
 		data(){
 			return {
 			revele: false,
@@ -57,13 +56,6 @@
 		},
 		created() {
 			this.displayProfile();  
-			this.notyf = new Notyf({
-			duration: 2000,
-			position: {
-				x: 'center',
-				y: 'top'
-			}
-			}); 
 		},
 		methods: {
 			// Permet d'afficher les informations de profil

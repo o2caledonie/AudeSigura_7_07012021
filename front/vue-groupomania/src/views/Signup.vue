@@ -33,10 +33,9 @@
 
 <script>
     import axios from 'axios'
-    import { Notyf } from 'notyf'
-    import 'notyf/notyf.min.css'
     export default {
         name: 'Signup',
+        inject: ['notyf'],
         data() {
             return {
                 userName: '',
@@ -45,13 +44,6 @@
             }
         },
         created() {
-            this.notyf = new Notyf({
-                duration: 4000,
-                position: {
-                    x: 'center',
-                    y: 'bottom'
-                }
-            });
         },
         methods: {
             // Sign up 

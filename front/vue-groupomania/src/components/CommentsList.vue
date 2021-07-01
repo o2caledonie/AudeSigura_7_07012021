@@ -25,8 +25,6 @@
 
 <script>
 import moment from "moment";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
 import Avatar from "../components/Avatar.vue";
 import DeleteCommentBtn from "../components/DeleteCommentBtn.vue";
 
@@ -48,13 +46,6 @@ export default {
     };
   },
   created() {
-    this.notyf = new Notyf({
-      duration: 2000,
-      position: {
-        x: "center",
-        y: "top",
-      },
-    });
   },
   methods: {
 

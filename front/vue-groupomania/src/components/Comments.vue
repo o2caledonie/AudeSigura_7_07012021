@@ -24,7 +24,6 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="flush-headingOne">
           <button
-            @click="showComments = !showComments"
             class="accordion-button collapsed"
             type="button"
             data-bs-toggle="collapse"
@@ -55,8 +54,6 @@
 
 <script>
 import axios from "axios";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
 import CommentsList from "../components/CommentsList.vue";
 
 export default {
@@ -67,6 +64,7 @@ export default {
   props: {
     post: { type: Object },
   },
+  inject: ['notyf'],
 
   data() {
     return {
@@ -82,20 +80,19 @@ export default {
       comments: [],
       contentComment: "",
       revele: false,
-      showCreateComment: false,
-      showInputModify: false,
       showComments: false,
     };
   },
   created() {
-    this.fetchComments();
-    this.notyf = new Notyf({
-      duration: 2000,
-      position: {
-        x: "center",
-        y: "top",
-      },
+  },
+  mounted() {
+    this.$refs['accordionContent'].addEventListener('show.bs.collapse', () => {
+        this.showComments = true;
     });
+    this.$refs['accordionContent'].addEventListener('hidden.bs.collapse', () => {
+        this.showComments = false;
+    });
+    this.fetchComments();
   },
   methods: {
     resetForm() {

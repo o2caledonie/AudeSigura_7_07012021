@@ -12,8 +12,6 @@
 
 <script>
 import axios from "axios";
-import { Notyf } from "notyf";
-import "notyf/notyf.min.css";
 
 export default {
   name: "DeletePostBtn",
@@ -21,7 +19,7 @@ export default {
   props: {
     post: { type: Object },
   },
-
+  inject: ['notyf'],
   data() {
     return {
       userId: localStorage.getItem("userId"),
@@ -29,13 +27,6 @@ export default {
     };
   },
   created() {
-    this.notyf = new Notyf({
-      duration: 2000,
-      position: {
-        x: "center",
-        y: "top",
-      },
-    });
   },
   methods: {
     deletePost(id) {
