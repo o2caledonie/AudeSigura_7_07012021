@@ -3,17 +3,27 @@
     <Navbar />
     <div class="newPost mt-5 mx-auto p-3">
       
+      <form id="demo">
+  <!-- text -->
+  <p>
+    <input type="text" v-model="post.content">
+    {{post.content}}
+  </p>
+  </form>
 
       <form @submit.prevent="createPost" aria-label="Nouveau message">
         <div class="newPost__content">
           <textarea
-            v-model="content"
+            v-model="post.content"
             class="newPost__content__text"
             name="message"
             id="message"
             placeholder="Quoi de neuf ?"
             aria-label="Rédiger un nouveau message"
-          />
+        />
+        <div>
+{{ post.content}} {{ post}}
+        </div>
 
           <div id="preview" style="display: block">
             <img
@@ -71,6 +81,7 @@ export default {
   },
   
   inject: ["notyf"],
+  
   data() {
     return {
       userName: localStorage.getItem("userName"),
@@ -78,9 +89,9 @@ export default {
       avatar: localStorage.getItem("avatar"),
       image: "",
       imagePreview: null,
-      content: "",
       posts: [],
-      post:"",
+      post:{},
+      content: "",
     };
   },
   created() {
@@ -95,6 +106,12 @@ export default {
       this.imagePreview = null;
     },
 
+//Display Post informations
+displayPost(){
+console.log(this.post.content);
+console.log(this.post.image);
+console.log(this.post)
+},
     //Fetch the post to be modified from API
     fetchOnePost() {
       axios
@@ -105,6 +122,7 @@ export default {
         })
         .then((response) => {
           this.post = response.data;
+          this.displayPost();
         })
         .catch((error) => {
           const msgerror = error.response.data;
