@@ -6,7 +6,6 @@
       v-for="comment in comments"
       :key="comment.id"
     >
-  
       <Avatar
         v-if="comment.owner.avatar == 'null'"
         :src="'user-circle-solid.png'"
@@ -17,8 +16,14 @@
       <div class="fw-bold">
         {{ comment.owner.userName }}
       </div>
+      <small class="text-muted">
+        le {{ dateFormat(comment.createdAt) }} : 
+      </small>
       {{ comment.content }}
-      <DeleteCommentBtn :comment="comment" @comment-deleted="handleCommentDeleted" />
+      <DeleteCommentBtn
+        :comment="comment"
+        @comment-deleted="handleCommentDeleted"
+      />
     </div>
   </div>
 </template>
@@ -36,24 +41,19 @@ export default {
   },
   props: {
     post: { type: Object },
-    comments: { type: Array }
+    comments: { type: Array },
   },
   data() {
     return {
       content: "",
-      contentmodifyPost: "",
-      contentComment: "",
+      comment: "",
     };
   },
-  created() {
-  },
   methods: {
-
-    handleCommentDeleted(){
-      this.$emit('comment-deleted')
+    //Emit to parent component when comment is deleted
+    handleCommentDeleted() {
+      this.$emit("comment-deleted");
     },
-
-    
 
     // Display publication date and time
     dateFormat(date) {

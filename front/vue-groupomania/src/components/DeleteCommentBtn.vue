@@ -19,19 +19,17 @@ export default {
   props: {
     comment: { type: Object },
   },
-  inject : ['notyf'],
+  inject: ['notyf'],
   data() {
     return {
       userId: localStorage.getItem("userId"),
       isAdmin: localStorage.getItem("isAdmin"),
     };
   },
-  created() {
-  },
   methods: {
+    //Delete comment
     deleteComment(id) {
       const commentId = id;
-
       axios
         .delete("http://localhost:3000/api/comment/" + commentId, {
           headers: {

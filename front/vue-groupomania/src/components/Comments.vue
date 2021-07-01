@@ -73,17 +73,9 @@ export default {
       isAdmin: localStorage.getItem("isAdmin"),
       imageProfile: localStorage.getItem("imageProfile"),
       posts: [],
-      imagePost: "",
-      imagePreview: null,
-      content: "",
-      contentmodifyPost: "",
       comments: [],
-      contentComment: "",
-      revele: false,
       showComments: false,
     };
-  },
-  created() {
   },
   mounted() {
     this.$refs['accordionContent'].addEventListener('show.bs.collapse', () => {

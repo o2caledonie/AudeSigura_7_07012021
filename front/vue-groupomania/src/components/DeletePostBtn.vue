@@ -26,8 +26,6 @@ export default {
       isAdmin: localStorage.getItem("isAdmin"),
     };
   },
-  created() {
-  },
   methods: {
     deletePost(id) {
       const postId = id;

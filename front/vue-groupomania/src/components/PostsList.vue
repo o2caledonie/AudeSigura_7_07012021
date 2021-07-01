@@ -73,13 +73,11 @@ export default {
       imagePost: "",
       imagePreview: null,
       content: "",
-      contentmodifyPost: "",
       comments: [],
       contentComment: "",
       revele: false,
       showComment: false,
-      showCreateComment: false,
-      showInputModify: false,
+      post:"",
     };
   },
   methods: {
