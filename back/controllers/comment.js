@@ -31,7 +31,7 @@ exports.getAllComments = async (req, res, next) => {
         include: [{
             model: db.User,
             as: 'owner',
-            attributes: ['id', 'userName']
+            attributes: ['id', 'userName', 'avatar']
         }, {
             model: db.Post,
             as: 'post',

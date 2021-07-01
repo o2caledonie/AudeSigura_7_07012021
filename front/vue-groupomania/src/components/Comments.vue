@@ -45,7 +45,7 @@
           ref="accordionContent"
         >
           <div class="accordion-body">
-            <CommentsList :post="post" v-if="showComments" />
+            <CommentsList :post="post" :comments="comments" v-if="showComments" @comment-deleted="fetchComments" />
           </div>
         </div>
       </div>
@@ -88,6 +88,7 @@ export default {
     };
   },
   created() {
+    this.fetchComments();
     this.notyf = new Notyf({
       duration: 2000,
       position: {
@@ -115,6 +116,26 @@ export default {
         .then(() => {
           this.notyf.success("Votre publication a bien été créée !");
           this.resetForm();
+          this.fetchComments();
+        })
+        .catch((error) => {
+          const msgerror = error.response.data;
+          this.notyf.error(msgerror.error);
+        });
+    },
+
+    fetchComments() {
+      const postId = this.post.id;
+      console.log(this.post.id);
+      axios
+        .get("http://localhost:3000/api/comment/" + postId, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.comments = response.data;
         })
         .catch((error) => {
           const msgerror = error.response.data;
