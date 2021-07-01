@@ -88,7 +88,7 @@ export default {
     ProfileImage,
     PostsList,
   },
-  inject: ['notyf'],
+  inject: ["notyf"],
   data() {
     return {
       userName: localStorage.getItem("userName"),
@@ -105,6 +105,8 @@ export default {
     this.fetchPosts();
   },
   methods: {
+    
+    //Reset form
     resetForm() {
       this.content = "";
       this.image = "";
@@ -132,8 +134,7 @@ export default {
         })
         .then(() => {
           this.notyf.success("Votre publication a bien été créée !");
-          this.resetForm(),
-          this.fetchPosts()
+          this.resetForm(), this.fetchPosts();
         })
         .catch((error) => {
           const msgerror = error.response.data;
@@ -141,6 +142,7 @@ export default {
         });
     },
 
+    //Fetch Posts from API
     fetchPosts() {
       axios
         .get("http://localhost:3000/api/post", {

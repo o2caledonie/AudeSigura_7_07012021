@@ -15,10 +15,11 @@
 
       <div class="fw-bold">
         {{ comment.owner.userName }}
-      </div>
-      <small class="text-muted">
+        <small class="text-muted mx-3 fw-normal">
         le {{ dateFormat(comment.createdAt) }} : 
       </small>
+      </div>
+      
       {{ comment.content }}
       <DeleteCommentBtn
         :comment="comment"

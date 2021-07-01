@@ -1,7 +1,7 @@
 <template>
   <div id="posts-list">
     <div class="displayPosts" v-for="post in posts" :key="post.postId">
-      <div class="card mb-5 ">
+      <div class="card mb-5">
         <div class="card-header d-flex">
           <Avatar
             v-if="post.owner.avatar == 'null'"
@@ -33,7 +33,7 @@
           />
         </div>
         <div>
-            <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
+          <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
         </div>
         <div>
           <Comments :post="post" />
@@ -51,17 +51,16 @@ import PostImage from "../components/PostImage.vue";
 import Comments from "../components/Comments.vue";
 import DeletePostBtn from "../components/DeletePostBtn.vue";
 
-
 export default {
   name: "PostsList",
   components: {
     Avatar,
     PostImage,
     Comments,
-    DeletePostBtn
+    DeletePostBtn,
   },
   props: {
-      posts: { type : Object } 
+    posts: { type: Object },
   },
 
   data() {
@@ -74,16 +73,13 @@ export default {
       imagePreview: null,
       content: "",
       comments: [],
-      contentComment: "",
-      revele: false,
-      showComment: false,
-      post:"",
+      post: "",
     };
   },
   methods: {
-
+    //Emit to parent component when post is deleted
     handlePostDeleted() {
-        this.$emit('post-deleted')
+      this.$emit("post-deleted");
     },
 
     // date and time

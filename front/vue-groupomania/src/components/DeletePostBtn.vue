@@ -6,7 +6,7 @@
     class="btn btn-outline-danger"
     aria-label="Supprimer le message"
   >
-    Supprimer <i class="far fa-trash-alt"></i>
+  <i class="far fa-trash-alt"></i>
   </button>
 </template>
 
@@ -24,9 +24,12 @@ export default {
     return {
       userId: localStorage.getItem("userId"),
       isAdmin: localStorage.getItem("isAdmin"),
+      
     };
   },
   methods: {
+
+    //Delete Post
     deletePost(id) {
       const postId = id;
 

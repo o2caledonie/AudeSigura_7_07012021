@@ -12,9 +12,6 @@ exports.createPost = (req, res, next) => {
     if (content == null || content == '') {
         return res.status(400).json({ error: 'Ce champ doit être renseigné' });
     }
-
-
-
     let image = null;
     if (req.file) {
         image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`

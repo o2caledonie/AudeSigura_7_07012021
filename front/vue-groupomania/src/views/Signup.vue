@@ -102,7 +102,7 @@
                 flex-direction: column;
                 align-items: center;
                 width: 90%;
-                border: 3px solid #3f3d56;
+                border: 3px solid #FD2D01;
                 border-radius: 25px;
                 margin-top: 2rem;
                 margin-left: -2rem;
@@ -122,7 +122,7 @@
                     width: 70%;
                     &__label {
                         text-align: start;
-                        font-weight: bolder;
+                        font-weight: bolder; 
                     }
                 }
                 &__button {

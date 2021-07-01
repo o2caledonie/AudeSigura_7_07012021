@@ -1,4 +1,5 @@
 <template>
+<div>
   <button
     type="submit"
     v-if="userId == comment.ownerId || isAdmin == 'true'"
@@ -6,8 +7,9 @@
     class="btn btn-outline-danger"
     aria-label="Supprimer le commentaire"
   >
-    Supprimer <i class="far fa-trash-alt"></i>
+ <i class="far fa-trash-alt"></i>
   </button>
+  </div>
 </template>
 
 <script>

@@ -1,21 +1,21 @@
 <template>
   <div>
     <form @submit.prevent="createComment" aria-label="Nouveau message">
-      <div class="newComment__content">
+      <div class="newComment__content d-flex">
         <textarea
           v-model="content"
           class="form-control"
           name="message"
           id="message"
-          placeholder="Rédiger votre commentaire ..."
+          placeholder="Rédigez votre commentaire ici ..."
           aria-label="Rédiger un nouveau commentaire"
         />
         <button
           type="submit"
-          class="btn btn-outline-danger"
+          class="btn btn-outline-danger me-md-2 "
           aria-label="Publier le message"
         >
-          Commenter <i class="far fa-paper-plane"></i>
+        <i class="far fa-check-circle"></i>
         </button>
       </div>
     </form>
@@ -32,7 +32,7 @@
             :aria-controls="buildAccordionId(post)"
           >
             Voir les commentaires
-            <i class="far fa-comment-dots mx-2"></i>
+            <i class="far fa-comments mx-2"></i>
           </button>
         </h2>
 
@@ -75,6 +75,7 @@ export default {
       posts: [],
       comments: [],
       showComments: false,
+      content: '',
     };
   },
   mounted() {

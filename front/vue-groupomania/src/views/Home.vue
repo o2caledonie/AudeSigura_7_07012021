@@ -5,7 +5,7 @@
       src="../assets/logo-long.png"
       alt="Logo de Groupomania"
     />
-  
+
     <div class="home__login">
       <form @submit.prevent="login" class="home__login__form">
         <h4 class="home__login__form__title">Se connecter</h4>
@@ -14,13 +14,14 @@
           <label for="mail" class="home__login__form__input__label"
             >Email</label
           >
-          <input 
-            type="email" 
+          <input
+            type="email"
             class="form-control"
-            placeholder="Votre adresse email" 
-            v-model="email" 
-            id="email" 
-            name="email" />
+            placeholder="Votre adresse email"
+            v-model="email"
+            id="email"
+            name="email"
+          />
         </div>
 
         <div class="home__login__form__input">
@@ -37,7 +38,9 @@
           />
         </div>
 
-        <button type="submit" class="home__login__form__button">Connexion</button>
+        <button type="submit" class="home__login__form__button">
+          Connexion
+        </button>
 
         <p>
           Vous n'avez pas encore de compte ?
@@ -48,44 +51,43 @@
       </form>
     </div>
   </div>
-  
 </template>
 
 <script>
-import axios from 'axios'
-    export default {
-        name: 'Home',
-        inject: ['notyf'],
-        data() {
-            return {
-                email: '',
-                password: '',
-            }
-        },
-        created() {
-        }, 
-        methods: {
-            // Permet de se connecter et de recharger la page sans que l'utilisateur soit déconnecté
-            login() {
-                axios.post('http://localhost:3000/api/user/login', {
-                    email: this.email,
-                    password: this.password,
-                })
-                .then(response => {
-                    localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('userId', response.data.userId);
-                    localStorage.setItem('userName', response.data.userName);
-                    localStorage.setItem('isAdmin', response.data.isAdmin);
-                    localStorage.setItem('avatar', response.data.avatar);
-                    this.$router.push('post');
-                })
-                .catch(error => {
-                    const msgerror = error.response.data
-                    this.notyf.error(msgerror.error)
-                })
-            }
-        }
-    }
+import axios from "axios";
+export default {
+  name: "Home",
+  inject: ["notyf"],
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  created() {},
+  methods: {
+    //Login
+    login() {
+      axios
+        .post("http://localhost:3000/api/user/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("userName", response.data.userName);
+          localStorage.setItem("isAdmin", response.data.isAdmin);
+          localStorage.setItem("avatar", response.data.avatar);
+          this.$router.push("post");
+        })
+        .catch((error) => {
+          const msgerror = error.response.data;
+          this.notyf.error(msgerror.error);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -111,7 +113,7 @@ import axios from 'axios'
       align-items: center;
       max-width: 500px;
       width: 90%;
-      border: 3px solid #3f3d56;
+      border: 3px solid #FD2D01;
       border-radius: 25px;
       margin-top: 2rem;
       margin-left: -2rem;
