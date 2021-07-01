@@ -7,7 +7,7 @@
       <div class="newPost__photo">
         <ProfileImage
           v-if="avatar == 'null'"
-          :src="'user-circle-solid.svg'"
+          :src="'user-circle-solid.png'"
           class="newPost__photo"
         />
         <ProfileImage v-else :src="avatar" class="newPost__photo" />
@@ -117,6 +117,12 @@ export default {
     });
   },
   methods: {
+    resetForm() {
+      this.content = "";
+      this.image = "";
+      this.imagePreview = null;
+    },
+
     // Create a new post
     uploadFile() {
       this.$refs.fileUpload.click();
@@ -138,7 +144,8 @@ export default {
         })
         .then(() => {
           this.notyf.success("Votre publication a bien été créée !");
-          window.location.reload();
+          this.resetForm(),
+          this.fetchPosts()
         })
         .catch((error) => {
           const msgerror = error.response.data;

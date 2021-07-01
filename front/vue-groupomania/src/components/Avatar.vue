@@ -1,6 +1,6 @@
 <template>
 	<span class="avatar">
-		<img :src="src || 'user-circle-solid.svg'" class="avatar" alt="avatar"/>
+		<img :src="src || 'user-circle-solid.png'" class="avatar" alt="avatar"/>
 	</span>
 </template>
 

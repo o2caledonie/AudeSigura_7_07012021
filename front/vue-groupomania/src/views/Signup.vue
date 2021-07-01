@@ -109,7 +109,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                width: 40%;
+                width: 90%;
                 border: 3px solid #3f3d56;
                 border-radius: 25px;
                 margin-top: 2rem;

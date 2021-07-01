@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <form @submit.prevent="createComment" aria-label="Nouveau message">
       <div class="newComment__content">
         <textarea
@@ -8,7 +7,7 @@
           class="form-control"
           name="message"
           id="message"
-          placeholder="Ecrivez votre commentaire ..."
+          placeholder="Rédiger votre commentaire ..."
           aria-label="Rédiger un nouveau commentaire"
         />
         <button
@@ -98,12 +97,15 @@ export default {
     });
   },
   methods: {
+    resetForm() {
+      this.content = "";
+    },
 
-     
     createComment() {
       const postId = this.post.id;
       console.log(this.content);
       const contentComment = { content: this.content };
+
       axios
         .post("http://localhost:3000/api/comment/" + postId, contentComment, {
           headers: {
@@ -112,7 +114,7 @@ export default {
         })
         .then(() => {
           this.notyf.success("Votre publication a bien été créée !");
-    
+          this.resetForm();
         })
         .catch((error) => {
           const msgerror = error.response.data;
