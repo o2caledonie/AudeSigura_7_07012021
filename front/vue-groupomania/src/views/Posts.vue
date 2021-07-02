@@ -24,11 +24,10 @@
             aria-label="Rédiger un nouveau message"
           />
 
-          <div id="preview" style="display: block">
+          <div id="preview">
             <img
               v-if="imagePreview"
               :src="imagePreview"
-              style="display: block"
               class="img-fluid"
               alt="Prévisualisation de l'image ajoutée au message"
             />

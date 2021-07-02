@@ -40,7 +40,7 @@ export default {
       localStorage.removeItem("isAdmin");
       localStorage.removeItem("avatar");
 
-      this.$router.push("http://localhost:8080/");
+      this.$router.push("/");
     },
   },
 };

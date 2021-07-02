@@ -21,6 +21,7 @@
             v-model="email"
             id="email"
             name="email"
+            autocomplete="username"
           />
         </div>
 
@@ -35,6 +36,7 @@
             v-model="password"
             id="password"
             name="password"
+            autocomplete="current-password"
           />
         </div>
 

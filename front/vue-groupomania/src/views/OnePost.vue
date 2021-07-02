@@ -35,14 +35,13 @@
           <PostImage
             v-else
             :src="post.image"
-            class="post-image"
             alt="Image de la publication"
           />
-          <div id="preview">
+          <div id="preview" class="post-image img-fluid">
             <img
               v-if="imagePreview"
               :src="imagePreview"
-              class="img-fluid"
+              class="post-image img-fluid"
               alt="Prévisualisation de l'image ajoutée au message"
             />
           </div>
@@ -187,4 +186,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 </style>
