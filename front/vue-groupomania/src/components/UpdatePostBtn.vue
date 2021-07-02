@@ -1,14 +1,13 @@
 <template>
-  <button
-    type="submit"
-    v-if="userId == post.ownerId || isAdmin == 'true'"
-    class="btn btn-outline-danger"
-    aria-label="Modifier le message"
-  >
-    <router-link :to="'/post/' + post.id" class="post-page"
+  
+    <router-link
+      :to="'/post/' + post.id"
+      aria-label="Modifier le message"
+      v-if="userId == post.ownerId || isAdmin == 'true'"
+      class="btn btn-outline-danger"
       ><i class="fas fa-pencil-alt"></i
     ></router-link>
-  </button>
+  
 </template>
 
 <script>

@@ -2,19 +2,19 @@
   <div id="one-post">
     <Navbar />
 
-    <div class="container mt-5">
+    <div class="container mt-5" v-if="post === null">chargement</div>
+    <div class="container mt-5" v-else>
       <div class="card mx-auto mb-5 d-flex justify-content-center">
         <div class="card-header d-flex">
-            
           <Avatar
-          v-if="post.owner.avatar == 'null'"
-          :src="'user-circle-solid.svg'"
-          class="avatar"
-        />
-        <Avatar v-else :src="post.owner.avatar" class="avatar" /> 
+            v-if="post.owner.avatar == 'null'"
+            :src="'user-circle-solid.svg'"
+            class="avatar"
+          />
+          <Avatar v-else :src="post.owner.avatar" class="avatar" />
           <p class="card-text mx-3">
-          {{ post.owner.userName }}
-        </p>
+            {{ post.owner.userName }}
+          </p>
 
           <p class="card-text ms-auto px-3">
             <small class="text-muted">
@@ -31,23 +31,23 @@
           <label for="floatingTextarea">Modifiez le contenu :</label>
         </div>
         <div>
-            <PostImage v-if="post.image == 'null'" class="post-image" />
-        <PostImage
-          v-else
-          :src="post.image"
-          class="post-image"
-          alt="Image de la publication"
-        />
-        <div id="preview">
-          <img
-            v-if="imagePreview"
-            :src="imagePreview"
-            class="img-fluid"
-            alt="Prévisualisation de l'image ajoutée au message"
+          <PostImage v-if="post.image == 'null'" class="post-image" />
+          <PostImage
+            v-else
+            :src="post.image"
+            class="post-image"
+            alt="Image de la publication"
           />
+          <div id="preview">
+            <img
+              v-if="imagePreview"
+              :src="imagePreview"
+              class="img-fluid"
+              alt="Prévisualisation de l'image ajoutée au message"
+            />
+          </div>
         </div>
-            </div>
-        
+
         <div class="container my-3">
           <div class="row justify-content-center">
             <button
@@ -77,8 +77,6 @@
         </div>
       </div>
     </div>
-
-    <router-view />
   </div>
 </template>
 
@@ -103,10 +101,9 @@ export default {
     return {
       userName: localStorage.getItem("userName"),
       isAdmin: localStorage.getItem("isAdmin"),
-      content: "",
-      post: {},
+      content: null,
       imagePreview: null,
-     
+      post: null,
     };
   },
   created() {
@@ -124,7 +121,7 @@ export default {
     displayPost() {
       console.log(this.post.content);
       console.log(this.post.image);
-      console.log(this.post);
+      console.log(this.post.owner.avatar);
     },
 
     // To change post image
@@ -190,10 +187,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.post-image {
-  width: 100%;
-  height: auto;
-}
-
-
 </style>
