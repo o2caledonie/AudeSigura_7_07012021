@@ -9,17 +9,17 @@
 
                 <div class="home__display__form__input">
                     <label for="username" class="home__display__form__input__label">Pseudo</label>
-                    <input type="text" v-model="userName" id="username" name="username">
+                    <input type="text" v-model="userName" id="username" name="username" attribute="username" required>
                 </div>
 
                 <div class="home__display__form__input">
                     <label for="mail" class="home__display__form__input__label">Email</label>
-                    <input type="email" v-model="email" id="mail" name="mail">
+                    <input type="email" v-model="email" id="mail" name="mail" attribute="username" required>
                 </div>
 
                 <div class="home__display__form__input">
                     <label for="password" class="home__display__form__input__label">Mot de passe</label>
-                    <input type="password" v-model="password" id="password" name="password">
+                    <input type="password" v-model="password" id="password" name="password" attribute="password" required>
                 </div>
 
                 <button class="home__display__form__button">Inscription</button>

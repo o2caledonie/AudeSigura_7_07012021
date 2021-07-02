@@ -22,6 +22,7 @@
             id="email"
             name="email"
             autocomplete="username"
+            required
           />
         </div>
 
@@ -37,6 +38,7 @@
             id="password"
             name="password"
             autocomplete="current-password"
+            required
           />
         </div>
 
