@@ -1,70 +1,76 @@
 <template>
-  <div id="posts">
+  <div id="one-post">
     <Navbar />
-    <div class="newPost mt-5 mx-auto p-3">
-      
-      <form id="demo">
-  <!-- text -->
-  <p>
-    <input type="text" v-model="post.content">
-    {{post.content}}
-  </p>
-  </form>
 
-      <form @submit.prevent="createPost" aria-label="Nouveau message">
-        <div class="newPost__content">
-          <textarea
-            v-model="post.content"
-            class="newPost__content__text"
-            name="message"
-            id="message"
-            placeholder="Quoi de neuf ?"
-            aria-label="Rédiger un nouveau message"
+    <div class="container mt-5">
+      <div class="card mx-auto mb-5 d-flex justify-content-center">
+        <div class="card-header d-flex">
+          <!-- <Avatar
+          v-if="post.owner.avatar == 'null'"
+          :src="'user-circle-solid.svg'"
+          class="avatar"
         />
-        <div>
-{{ post.content}} {{ post}}
+        <Avatar v-else :src="post.owner.avatar" class="avatar" /> -->
+          <!-- <p class="card-text mx-3">
+          {{ post.owner.userName }}
+        </p> -->
+          <p class="card-text ms-auto px-3">
+            <small class="text-muted">
+              Publié le {{ dateFormat(post.createdAt) }}
+            </small>
+          </p>
         </div>
-
-          <div id="preview" style="display: block">
-            <img
-              v-if="imagePreview"
-              :src="imagePreview"
-              id="preview"
-              style="display: block"
-              class="newPost__content__image"
-              alt="Prévisualisation de l'image ajoutée au message"
-            />
-          </div>
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            id="floatingTextarea"
+            v-model="post.content"
+          ></textarea>
+          <label for="floatingTextarea">Modifier le contenu :</label>
         </div>
-
-        <div class="newPost__option">
-          <div class="newPost__option__file">
+        <PostImage v-if="post.image == 'null'" class="post-image" />
+        <PostImage
+          v-else
+          :src="post.image"
+          class="post-image"
+          alt="Image de la publication"
+        />
+        <div id="preview">
+          <img
+            v-if="imagePreview"
+            :src="imagePreview"
+            id="preview"
+            alt="Prévisualisation de l'image ajoutée au message"
+          />
+        </div>
+        <div class="container my-3">
+          <div class="row justify-content-center">
             <button
               @click="uploadFile"
               type="button"
-              class="newPost__option__file__btnInvisible"
+              class="btn btn-outline-secondary mb-3 mx-2 col-12 col-sm-6"
             >
-              <i class="far fa-images fa-2x"></i> Choisir un fichier
+              <i class="far fa-edit"></i> Modifier l'image
             </button>
 
             <input
+              class="d-none"
               type="file"
               ref="fileUpload"
               @change="onFileSelected"
               accept="image/*"
-              aria-label="Sélectionner un fichier"
+              id="file-input"
+              aria-label="Modifier l'image du post"
             />
+            <button
+              @click="updatePostImage"
+              class="btn btn-success mb-3 mx-2 col-12 col-sm-6"
+            >
+              Enregister <i class="fas fa-check"></i>
+            </button>
           </div>
-
-          <button
-            type="submit"
-            class="newPost__option__button"
-            aria-label="Publier le message"
-          >
-            Publier <i class="far fa-paper-plane"></i>
-          </button>
         </div>
-      </form>
+      </div>
     </div>
 
     <router-view />
@@ -72,46 +78,89 @@
 </template>
 
 <script>
+import PostImage from "../components/PostImage.vue";
+// import Avatar from "../components/Avatar.vue";
+
+import moment from "moment";
 import axios from "axios";
 import Navbar from "../components/Navbar.vue";
 export default {
   name: "OnePost",
   components: {
     Navbar,
+    // Avatar,
+    PostImage,
   },
-  
+
   inject: ["notyf"],
-  
+
   data() {
     return {
       userName: localStorage.getItem("userName"),
       isAdmin: localStorage.getItem("isAdmin"),
-      avatar: localStorage.getItem("avatar"),
-      image: "",
-      imagePreview: null,
-      posts: [],
-      post:{},
       content: "",
+      post: {},
+      imagePreview: null,
     };
   },
   created() {
     this.fetchOnePost();
   },
   methods: {
-    
-    //Reset form
-    resetForm() {
-      this.content = "";
-      this.image = "";
+    // date and time
+    dateFormat(date) {
+      if (date) {
+        return moment(String(date)).format("DD/MM/YYYY à hh:mm");
+      }
+    },
+
+    //Display Post informations
+    displayPost() {
+      console.log(this.post.content);
+      console.log(this.post.image);
+      console.log(this.post);
+    },
+
+    // To change post image
+    uploadFile() {
+      this.$refs.fileUpload.click();
+    },
+
+    onFileSelected(event) {
+      this.post.image = event.target.files[0];
+      this.imagePreview = URL.createObjectURL(this.post.image);
+    },
+
+    updatePostImage() {
+      const formData = new FormData();
+      formData.append("image", this.post.image);
+      formData.append("content", this.post.content);
+      axios
+        .patch(
+          "http://localhost:3000/api/post/" + this.$route.params.id,
+          formData,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(() => {
+          this.notyf.success("Votre publication a bien été modifiée !");
+          this.fetchOnePost();
+        })
+        .catch((error) => {
+          const msgerror = error.response.data;
+          this.notyf.error(msgerror.error);
+        });
+    },
+
+    //Reset preview
+    resetPreview() {
       this.imagePreview = null;
     },
 
-//Display Post informations
-displayPost(){
-console.log(this.post.content);
-console.log(this.post.image);
-console.log(this.post)
-},
     //Fetch the post to be modified from API
     fetchOnePost() {
       axios
@@ -122,6 +171,7 @@ console.log(this.post)
         })
         .then((response) => {
           this.post = response.data;
+          this.resetPreview();
           this.displayPost();
         })
         .catch((error) => {
@@ -134,74 +184,4 @@ console.log(this.post)
 </script>
 
 <style scoped lang="scss">
-.newPost {
-  background: #ffb1b1;
-  border-radius: 25px;
-  width: 50%;
-  @media (max-width: 950px) {
-    width: 60%;
-  }
-  @media (max-width: 768px) {
-    width: 70%;
-  }
-  @media (max-width: 550px) {
-    width: 80%;
-  }
-  @media (max-width: 450px) {
-    width: 90%;
-  }
-  &__photo__image {
-    width: 47px;
-  }
-  &__content__text {
-    border-radius: 0 15px;
-    border: none;
-    margin: 1.5rem 0 0 0;
-    max-width: 50rem;
-    width: 90%;
-    min-height: 5rem;
-  }
-  &__content__image {
-    max-width: 50rem;
-    width: 90%;
-    height: 274px;
-    margin: 1rem auto;
-    object-fit: cover;
-  }
-  &__option {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    &__file > input {
-      display: none;
-    }
-    &__file {
-      &__btnInvisible {
-        display: flex;
-        align-items: center;
-        color: #3f3d56;
-        border: none;
-        background-color: #ffb1b1;
-        &:hover,
-        &:focus {
-          color: white;
-        }
-      }
-    }
-    &__button {
-      border: 2px solid #3f3d56;
-      border-radius: 25px;
-      color: #3f3d56;
-      font-size: 15px;
-      font-weight: bold;
-      padding: 0.4rem;
-      margin: 1rem;
-      outline-style: none;
-      &:hover,
-      &:focus {
-        color: #ff6363;
-      }
-    }
-  }
-}
 </style>

@@ -75,7 +75,7 @@ export default {
     this.displayProfile();
   },
   methods: {
-    // Permet d'afficher les informations de profil
+    // fetch User informations
     displayProfile() {
       const userId = localStorage.getItem("userId");
       console.log(localStorage.getItem("token"));
@@ -94,7 +94,7 @@ export default {
           this.notyf.error(msgerror.error);
         });
     },
-    // Permet de modifier la photo de profil
+    // To change profil picture
     uploadFile() {
       this.$refs.fileUpload.click();
     },
