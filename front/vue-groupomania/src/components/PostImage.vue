@@ -1,6 +1,6 @@
 <template>
-  <div class="post-image">
-    <img :src="src || ''" class="post-image" />
+  <div class="post-image img-fluid">
+    <img :src="src || ''" class="post-image img-fluid" />
   </div>
 </template>
 

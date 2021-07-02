@@ -5,15 +5,17 @@
     <div class="container mt-5">
       <div class="card mx-auto mb-5 d-flex justify-content-center">
         <div class="card-header d-flex">
-          <!-- <Avatar
+            
+          <Avatar
           v-if="post.owner.avatar == 'null'"
           :src="'user-circle-solid.svg'"
           class="avatar"
         />
-        <Avatar v-else :src="post.owner.avatar" class="avatar" /> -->
-          <!-- <p class="card-text mx-3">
+        <Avatar v-else :src="post.owner.avatar" class="avatar" /> 
+          <p class="card-text mx-3">
           {{ post.owner.userName }}
-        </p> -->
+        </p>
+
           <p class="card-text ms-auto px-3">
             <small class="text-muted">
               Publié le {{ dateFormat(post.createdAt) }}
@@ -26,9 +28,10 @@
             id="floatingTextarea"
             v-model="post.content"
           ></textarea>
-          <label for="floatingTextarea">Modifier le contenu :</label>
+          <label for="floatingTextarea">Modifiez le contenu :</label>
         </div>
-        <PostImage v-if="post.image == 'null'" class="post-image" />
+        <div>
+            <PostImage v-if="post.image == 'null'" class="post-image" />
         <PostImage
           v-else
           :src="post.image"
@@ -39,10 +42,12 @@
           <img
             v-if="imagePreview"
             :src="imagePreview"
-            id="preview"
+            class="img-fluid"
             alt="Prévisualisation de l'image ajoutée au message"
           />
         </div>
+            </div>
+        
         <div class="container my-3">
           <div class="row justify-content-center">
             <button
@@ -79,7 +84,7 @@
 
 <script>
 import PostImage from "../components/PostImage.vue";
-// import Avatar from "../components/Avatar.vue";
+import Avatar from "../components/Avatar.vue";
 
 import moment from "moment";
 import axios from "axios";
@@ -88,7 +93,7 @@ export default {
   name: "OnePost",
   components: {
     Navbar,
-    // Avatar,
+    Avatar,
     PostImage,
   },
 
@@ -101,6 +106,7 @@ export default {
       content: "",
       post: {},
       imagePreview: null,
+     
     };
   },
   created() {
@@ -184,4 +190,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.post-image {
+  width: 100%;
+  height: auto;
+}
+
+
 </style>

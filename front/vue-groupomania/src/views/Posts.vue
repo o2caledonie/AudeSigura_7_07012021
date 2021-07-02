@@ -28,9 +28,8 @@
             <img
               v-if="imagePreview"
               :src="imagePreview"
-              id="preview"
               style="display: block"
-              class="newPost__content__image"
+              class="img-fluid"
               alt="Prévisualisation de l'image ajoutée au message"
             />
           </div>
