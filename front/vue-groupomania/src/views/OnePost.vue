@@ -32,11 +32,7 @@
         </div>
         <div>
           <PostImage v-if="post.image == 'null'" class="post-image" />
-          <PostImage
-            v-else
-            :src="post.image"
-            alt="Image de la publication"
-          />
+          <PostImage v-else :src="post.image" alt="Image de la publication" />
           <div id="preview" class="post-image img-fluid">
             <img
               v-if="imagePreview"
@@ -72,6 +68,13 @@
             >
               Enregister <i class="fas fa-check"></i>
             </button>
+
+            <router-link
+              :to="'/post/'"
+              aria-label="Revenir aux publications"
+              class="btn btn-danger mx-2 col-12 col-sm-6"
+              ><i class="fas fa-arrow-circle-left"></i></router-link>
+
           </div>
         </div>
       </div>
@@ -186,5 +189,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 </style>

@@ -61,3 +61,26 @@ exports.deleteComment = async (req, res, next) => {
         }
     }
 }
+
+exports.updateComment = async (req, res, next) => {
+    // const contentComment = req.body.content;
+    console.log(req.body.content);
+    const comment = await db.Comment.findOne({
+        where: { id: req.params.commentId },
+    });
+    if (comment === null) {
+        return res.status(404).json({ error: "Commentaire non trouvé" })
+    } else {
+        if (req.user.id != comment.ownerId && req.user.isAdmin != true) {
+            return res.status(403).json({ error: 'Vous n\'êtes pas autorisé(e) à effectuer cette action' })
+        }
+        try {
+            await db.Comment.update(req.body.content,{
+                where: { id: req.params.commentId }
+            });
+            return res.status(200).json({ message: 'Votre commentaire a bien été modifié'})
+        } catch (error) {
+            return res.status(500).json({ error: 'Une erreur s\'est produite ! Votre commentaire n\'a pas été modifié ...' });
+        }
+    }
+}

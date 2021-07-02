@@ -12,10 +12,10 @@
         />
         <button
           type="submit"
-          class="btn btn-outline-danger me-md-2 "
+          class="btn btn-danger me-md-2 "
           aria-label="Publier le message"
         >
-        <i class="far fa-check-circle"></i>
+        <i class="fas fa-check-circle"></i>
         </button>
       </div>
     </form>

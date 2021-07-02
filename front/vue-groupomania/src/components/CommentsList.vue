@@ -25,6 +25,11 @@
         :comment="comment"
         @comment-deleted="handleCommentDeleted"
       />
+
+      <UpdateCommentBtn
+        :comment="comment"
+      />
+    
     </div>
   </div>
 </template>
@@ -33,12 +38,14 @@
 import moment from "moment";
 import Avatar from "../components/Avatar.vue";
 import DeleteCommentBtn from "../components/DeleteCommentBtn.vue";
+import UpdateCommentBtn from "../components/UpdateCommentBtn.vue";
 
 export default {
   name: "CommentsList",
   components: {
     Avatar,
     DeleteCommentBtn,
+    UpdateCommentBtn,
   },
   props: {
     post: { type: Object },
