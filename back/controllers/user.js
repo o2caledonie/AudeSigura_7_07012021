@@ -6,15 +6,37 @@ const db = require('../models');
 
 exports.signup = (req, res, next) => {
 
+    // Check the user inputs
+    let email = req.body.email;
+    let userName = req.body.userName;
+    let password = req.body.password;
+
+    if (email === null || userName === null || password === null) {
+        res.status(400).json({ error: 'Veuillez renseigner tous les champs' })
+    }
+
     // Checks if the password is 8 characters long and contains a lowercase, an uppercase, a number and a special character
     if (!/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(req.body.password)) {
         return res.status(400).json({ error: 'Le mot de passe doit contenir minimum 8 caractères avec au minimum un caractère minuscule et majuscule, un chiffre et un caractère spécial !@#$%^&*' })
     };
+
+    // Checks if the username contains minimum 3 and maximum 25 characters
+    if (userName.length < 3) {
+        return res.status(400).json({ error: 'Le nom d\'utilisateur doit contenir au minimum 3 caractères' });
+    } else if (userName.length > 25) {
+        return res.status(400).json({ error: 'Le nom d\'utilisateur doit contenir au maximum 25 caractères' });
+    };
+
+    // Checks if the format email is valid
+    if (!/^[a-z0-9!#$ %& '*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&' * +/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(req.body.email)) {
+        return res.status(400).json({ error: '<format de l\'email invalide' })
+    };
+
     db.User.findOne({
         attributes: ['userName' || 'email'],
         where: {
-            userName: req.body.userName,
-            email: req.body.email
+            userName,
+            email,
         }
     })
         .then(user => {
@@ -58,7 +80,7 @@ exports.signup = (req, res, next) => {
 
         .catch((error) => {
             console.log(error)
-            res.status(500).json({ error })
+            res.status(500).json({ error: 'Une erreur s\'est produite, votre compte n\'a pas été créé' })
         })
 };
 
@@ -139,7 +161,7 @@ exports.updateProfile = (req, res, next) => {
             userName: req.body.userName,
             avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
         } : { ...req.body }
-   
+
     db.User.findOne({
         where: { id: id },
     })
