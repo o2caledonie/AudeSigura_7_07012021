@@ -6,10 +6,12 @@
            
             <form @submit.prevent="signup" class="home__display__form">
                 <h1 class="home__display__form__title">S'inscrire</h1>
+                <p class="text-muted">*Tous les champs sont obligatoires</p>
 
                 <div class="home__display__form__input">
                     <label for="username" class="home__display__form__input__label">Pseudo</label>
-                    <input type="text" v-model="userName" id="username" name="username" attribute="username" required>
+                    <input type="text" v-model="userName" id="username" name="username" attribute="username" pattern="{3,25}" title="3 à 25 caractères" aria-describedby="usernameHelp" required>
+                    <div id="usernameHelp" class="form-text">Votre pseudo doit contenir entre 3 et 25 caractères</div>
                 </div>
 
                 <div class="home__display__form__input">
@@ -19,7 +21,8 @@
 
                 <div class="home__display__form__input">
                     <label for="password" class="home__display__form__input__label">Mot de passe</label>
-                    <input type="password" v-model="password" id="password" name="password" attribute="password" required>
+                    <input type="password" v-model="password" id="password" name="password" attribute="password" pattern="{(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$}" required>
+                    
                 </div>
 
                 <button class="home__display__form__button">Inscription</button>
