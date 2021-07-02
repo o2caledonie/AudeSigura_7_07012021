@@ -44,7 +44,7 @@
           ref="accordionContent"
         >
           <div class="accordion-body">
-            <CommentsList :post="post" :comments="comments" v-if="showComments" @comment-deleted="fetchComments" />
+            <CommentsList :post="post" :comments="comments" v-if="showComments" @comment-deleted="fetchComments" @comment-updated="fetchComments" />
           </div>
         </div>
       </div>

@@ -65,6 +65,7 @@ exports.deleteComment = async (req, res, next) => {
 exports.updateComment = async (req, res, next) => {
     // const contentComment = req.body.content;
     console.log(req.body.content);
+    const contentComment = req.body.content
     const comment = await db.Comment.findOne({
         where: { id: req.params.commentId },
     });
@@ -75,7 +76,7 @@ exports.updateComment = async (req, res, next) => {
             return res.status(403).json({ error: 'Vous n\'êtes pas autorisé(e) à effectuer cette action' })
         }
         try {
-            await db.Comment.update(req.body.content,{
+            await db.Comment.update({content: contentComment},{
                 where: { id: req.params.commentId }
             });
             return res.status(200).json({ message: 'Votre commentaire a bien été modifié'})

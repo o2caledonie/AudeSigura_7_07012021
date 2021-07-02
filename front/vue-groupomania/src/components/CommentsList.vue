@@ -28,6 +28,7 @@
 
       <UpdateCommentBtn
         :comment="comment"
+        @comment-updated="handleCommentUpdated"
       />
     
     </div>
@@ -61,6 +62,11 @@ export default {
     //Emit to parent component when comment is deleted
     handleCommentDeleted() {
       this.$emit("comment-deleted");
+    },
+
+    //Emit to parent component when comment is updated
+    handleCommentUpdated() {
+      this.$emit("comment-updated");
     },
 
     // Display publication date and time

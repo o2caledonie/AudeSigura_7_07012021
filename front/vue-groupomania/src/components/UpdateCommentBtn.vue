@@ -30,19 +30,19 @@ export default {
   },
   methods: {
     //Delete comment
-    deleteComment(id) {
+    updateComment(id) {
       const commentId = id;
       axios
-        .delete("http://localhost:3000/api/comment/" + commentId, {
+        .patch("http://localhost:3000/api/comment/" + commentId, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
           },
         })
         .then(() => {
-          if (window.confirm("Supprimer le commentaire ?")) {
-            this.notyf.success("Votre commentaire a bien été supprimé !");
-            this.$emit("comment-deleted");
+          if (window.confirm("Modifier le commentaire ?")) {
+            this.notyf.success("Votre commentaire a bien été modifié !");
+            this.$emit("comment-updated");
           }
         })
         .catch((error) => {
