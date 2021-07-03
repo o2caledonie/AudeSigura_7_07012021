@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require('express'); //Import "express" (framework based on Node.js)
 const app = express();
 const db = require('./models');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
+const bodyParser = require('body-parser');//Extracts JSON object from POST requests
+const helmet = require('helmet'); //Node.js module that helps in securing HTTP headers
 const path = require('path'); //Plugin to upload images and manage files paths access
 
 require('dotenv').config();
@@ -21,7 +21,7 @@ app.use(bodyParser.json());// Parse incoming request bodies in json format
 // HELMET
 app.use(helmet()); //sets up various HTTP headers to prevent attacks like Cross-Site-Scripting(XSS), clickjacking, etc.
 
-// Sequelize tries to connect to the database
+// Sequelize to connect to the database
 db.sequelize
     .authenticate()
     .then(() => {
@@ -31,9 +31,10 @@ db.sequelize
         console.log('Unable to connect to the database : ', error);
     })
 
-// ROUTES
+// IMAGES PATH
 app.use('/images', express.static(path.join(__dirname, 'images')));//Download images from 'images' directory 
 
+// ROUTES
 const userRoutes = require('./routes/user');
 app.use('/api/user', userRoutes);
 

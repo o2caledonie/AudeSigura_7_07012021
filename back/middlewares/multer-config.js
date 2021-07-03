@@ -1,7 +1,7 @@
-// Permet d'importer multer
+// Import Multer
 const multer = require('multer');
 
-// Permet de définir l'extension des fichiers images
+// To set extensions on images files
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
@@ -9,13 +9,13 @@ const MIME_TYPES = {
     'image/gif': 'gif'
 };
 
-// Permet de configurer multer
+// Config Multer
 const storage = multer.diskStorage({
-    // Permet de stocker les images dans le dossier images
+    // To store images in images directory
     destination: (req, file, callback) => {
         callback(null, 'images')
     },
-    // Permet de générer un nouveau nom de fichier image
+    // to genreate a new file name
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_');
         const extension = MIME_TYPES[file.mimetype];
@@ -23,5 +23,5 @@ const storage = multer.diskStorage({
     }
 });
 
-// Permet d'exporter le middleware multer
+// Export Multer
 module.exports = multer({storage}).single('image');

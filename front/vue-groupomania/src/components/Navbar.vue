@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light nav">
       <img
         class="nav__logo"
-        src="../assets/logo-long.png"
+        src="../assets/logo-long-groupomania.png"
         alt="Logo de Groupomania"
       />
 

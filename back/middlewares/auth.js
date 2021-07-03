@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
         if (req.body.userId && req.body.userId !== userId) {
             throw 'Invalid user ID';
         } else {
-            //permet de récupérer l'utilisateur connecté pour le mettre dans la requête
             req.user = await db.User.findOne({
                 attributes : ['id','isAdmin'],
                 where: {

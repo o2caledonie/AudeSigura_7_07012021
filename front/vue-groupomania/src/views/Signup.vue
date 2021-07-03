@@ -2,11 +2,11 @@
   <div class="container mx-auto p-3">
     <img
       class="img-fluid"
-      src="../assets/logo-long.png"
+      src="../assets/logo-groupomania.png"
       alt="Logo Groupomania"
     />
 
-    <div class="card home shadow mx-auto my-4 p-3">
+    <div class="card home shadow mx-auto my-2 p-3">
       <form @submit.prevent="signup" class="card-body">
         <h1 class="card-title fw-bold">S'inscrire</h1>
         <p class="form-text">*Tous les champs sont obligatoires</p>
@@ -109,6 +109,9 @@ export default {
 <style scoped lang="scss">
 .home {
     max-width: 800px;
+    .img-fluid{
+      max-width: 75%;
+    }
     .param {
       .form-control {
           max-width: 400px;
