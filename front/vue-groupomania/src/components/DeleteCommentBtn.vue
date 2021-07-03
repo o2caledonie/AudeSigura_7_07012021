@@ -7,6 +7,7 @@
     class="btn btn-outline-danger"
     aria-label="Supprimer le commentaire"
   >
+  Supprimer
  <i class="far fa-trash-alt"></i>
   </button>
   </div>

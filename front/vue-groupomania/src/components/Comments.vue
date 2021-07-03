@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="createComment" aria-label="Nouveau message">
+    <form @submit.prevent="createComment" aria-label="Nouveau message" class="my-1">
       <div class="newComment__content d-flex">
         <textarea
           v-model="content"
@@ -10,9 +10,10 @@
           placeholder="Rédigez votre commentaire ici ..."
           aria-label="Rédiger un nouveau commentaire"
         />
+        <label for="message" class="d-none">Commentez la publication</label>
         <button
           type="submit"
-          class="btn btn-danger me-md-2 "
+          class="btn btn-danger me-md "
           aria-label="Publier le message"
         >
         <i class="fas fa-check-circle"></i>
@@ -148,10 +149,21 @@ export default {
 .btn {
   font-size: 0.9em;
   font-weight: bold;
+  transform: scale(1);
+  transition: transform 200ms ease-in-out !important;
+  &:focus,
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 .form-control {
   font-size: 0.8em;
   font-weight: bold;
+   &:focus,
+        &:hover {
+          border-color: #25477e;
+          box-shadow: 0 0 0.2em 0.2em #25477e;
+        }
 }
 .accordion-button {
   font-size: 0.6em;

@@ -1,20 +1,20 @@
 <template>
   <div>
     <Navbar />
-    <div>
-      <h1 v-if="user">Bienvenue {{ user.userName }} !</h1>
 
-      <div class="profile">
-        <h2>Mon profil</h2>
+    <h1 class="my-4 fw-bold" v-if="user">Bienvenue {{ user.userName }} !</h1>
+    <div class="card bg-light_newPost border-3 rounded my-4 mx-auto p-3">
+      <div class="card-body">
+        <h2 class="card-title fw-bold text-light">Mon profil</h2>
 
-        <div class="profile__photo">
+        <div class="user-avatar">
           <ProfileImage :src="user.avatar" class="profile__photo__image" />
 
-          <div class="profile__photo__modify">
+          <div class="form-floating my-3">
             <button
               @click="uploadFile"
               type="button"
-              class="profile__photo__modify__btnInvisible"
+              class="btn btn-outline-light border-3  mx-auto mb-3 col-8 col-sm-4"
             >
               <i class="far fa-edit"></i> Modifier ma photo de profil
             </button>
@@ -25,26 +25,30 @@
               @change="onFileSelected"
               accept="image/*"
               id="file-input"
-              aria-label="Modifier ma photo de profil"
+              aria-labelledby="Modifier ma photo de profil"
+              class="d-none"
             />
           </div>
         </div>
 
         <div class="profile__info">
-          <p class="profile__info__title">Pseudo</p>
-          <div class="profile__info__text">{{ user.userName }}</div>
-
-          <p class="profile__info__title">Email</p>
-          <div class="profile__info__text">{{ user.email }}</div>
+          <div class="row my-3">
+          <h3 class="fs-3">Pseudo</h3>
+          <span class="badge rounded-pill fs-4 bg-light text-dark">{{ user.userName }}</span>
+          </div>
+          <div class="row my-3">
+          <h3 class="fs-3">Email</h3>
+          <span class="badge rounded-pill fs-4 bg-light text-dark">{{ user.email }}</span>
+          </div>
         </div>
 
-        <button @click="modifyProfile" class="profile__smallButton">
+        <button @click="modifyProfile" class="btn btn-dark border-2 mx-auto my-3 col-10 col-sm-6">
           Enregister <i class="fas fa-check"></i>
         </button>
       </div>
 
       <ModaleDeleteAccount :revele="revele" :displayModale="displayModale" />
-      <button class="profile__bigButton" @click="displayModale">
+      <button class="btn btn-danger rounded col-6 mx-auto" @click="displayModale">
         Supprimer mon compte <i class="far fa-trash-alt"></i>
       </button>
     </div>
@@ -130,92 +134,41 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1,
-h2 {
-  margin-top: 2rem;
+.card {
+  &.bg-light {
+    &_newPost {
+      max-width: 500px;
+      background-image: linear-gradient(#192b48, #fff);
+    }
+  }
+ 
 }
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 40%;
-  max-width: 60%;
-  margin: 3rem auto;
-  background: #ffb1b1;
-  border-radius: 25px;
-  @media (max-width: 500px) {
-    min-width: 80%;
-  }
-  &__photo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    &__image {
-      margin-right: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    &__modify > input {
-      display: none;
-    }
-    &__modify__btnInvisible {
-      border: none;
-      background-color: #ffb1b1;
-      color: #3f3d56;
-      &:hover,
-      &:focus {
-        color: white;
-        cursor: pointer;
-      }
-    }
-  }
-  &__info {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 1rem;
-    &__title {
-      font-weight: bold;
-      margin: 1rem 0 0.4rem 0;
-    }
-    &__text {
-      background: white;
-      border-radius: 10px;
-      padding: 0.5rem;
-      width: 15rem;
-    }
-  }
-  &__smallButton {
-    border: 2px solid #3f3d56;
-    border-radius: 25px;
-    color: #3f3d56;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 0.4rem;
-    margin: 1rem;
-    outline-style: none;
-    background: white;
-    &:hover,
-    &:focus {
-      color: #ff6363;
-      cursor: pointer;
-    }
-  }
-  &__bigButton {
-    border: 3px solid #3f3d56;
-    border-radius: 25px;
-    color: #3f3d56;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 0.9rem;
-    margin: 1rem;
-    outline-style: none;
-    &:hover,
-    &:focus {
-      border: 3px solid #ff6363;
-      color: #ff6363;
-      cursor: pointer;
-    }
+.rounded {
+  @media (min-width: 500px) {
+    border-radius: 1.5rem !important;
   }
 }
+
+.form-control {
+  &:focus,
+  &:hover {
+    border-color: #000;
+    box-shadow: 0 0 0.2em 0.2em #000;
+  }
+}
+
+.btn-dark {
+  transform: scale(1);
+  transition: transform 200ms ease-in-out !important;
+  &:focus,
+  &:hover {
+    font-weight: bold;
+    color:#192b48;
+    background-color: #fff;
+    border-color: #fd2d01;
+    box-shadow: 0 0 0.2em 0.2em #fd2d01;
+    transform: scale(1.1);
+  }
+}
+
 </style>

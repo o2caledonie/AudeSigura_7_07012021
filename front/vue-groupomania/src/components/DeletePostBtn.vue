@@ -3,10 +3,11 @@
     type="submit"
     v-if="userId == post.ownerId || isAdmin == 'true'"
     v-on:click="deletePost(post.id)"
-    class="btn btn-outline-danger"
+    class="btn btn-outline-danger border-2"
     aria-label="Supprimer le message"
   >
-  <i class="far fa-trash-alt"></i>
+    Supprimer
+    <i class="far fa-trash-alt"></i>
   </button>
 </template>
 
@@ -19,16 +20,14 @@ export default {
   props: {
     post: { type: Object },
   },
-  inject: ['notyf'],
+  inject: ["notyf"],
   data() {
     return {
       userId: localStorage.getItem("userId"),
       isAdmin: localStorage.getItem("isAdmin"),
-      
     };
   },
   methods: {
-
     //Delete Post
     deletePost(id) {
       const postId = id;
@@ -54,3 +53,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.btn-outline-danger {
+  transform: scale(1);
+  transition: transform 200ms ease-in-out !important;
+  &:focus,
+  &:hover {
+    font-weight: bold;
+    border-color: #fd2d01;
+    transform: scale(1.2);
+  }
+}
+</style>

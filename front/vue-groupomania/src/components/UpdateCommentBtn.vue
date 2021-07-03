@@ -5,7 +5,7 @@
       v-if="userId == comment.ownerId || isAdmin == 'true'"
       data-bs-toggle="modal"
       :data-bs-target="'#modale-' + idModale"
-      class="btn btn-danger"
+      class="btn btn-dark"
       aria-label="Modifier le commentaire"
     >
       Modifier<i class="fas fa-pencil-alt"></i>
@@ -115,3 +115,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.btn-dark {
+  transform: scale(1);
+  transition: transform 200ms ease-in-out !important;
+  &:focus,
+  &:hover {
+    font-weight: bold;
+    transform: scale(1.2);
+  }
+}
+</style>

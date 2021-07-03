@@ -1,7 +1,7 @@
 <template>
   <div id="posts-list">
-    <div class="displayPosts" v-for="post in posts" :key="post.postId">
-      <div class="card mb-5">
+    <div class="container mx-auto p-3" v-for="post in posts" :key="post.postId">
+      <div class="card post border-3 mb-3 mx-auto">
         <div class="card-header d-flex">
           <Avatar
             v-if="post.owner.avatar == 'null'"
@@ -32,15 +32,16 @@
             alt="Image de la publication"
           />
         </div>
-        <div>
-          <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
+        <div class="row m-0 justify-content-center">
+          <div class="mx-auto my-2 col-8 col-sm-4">
+            <DeletePostBtn :post="post" @post-deleted="handlePostDeleted" />
+          </div>
+          <div class="mx-auto my-2 col-8 col-sm-4">
+            <UpdatePostBtn :post="post" @post-updated="handlePostUpdated" />
+          </div>
         </div>
-        <div>
-          <UpdatePostBtn :post="post" @post-updated="handlePostUpdated" />
-        </div>
-        <div>
-          <Comments :post="post" />
-        </div>
+
+        <Comments :post="post" />
       </div>
     </div>
   </div>
@@ -102,8 +103,11 @@ export default {
 </script>
 
 <style lang="scss">
-.post-image {
-  width: 100%;
-  height: auto;
+.post {
+  max-width: 500px;
+  .post-image {
+    width: 100%;
+    height: auto;
+  }
 }
 </style>

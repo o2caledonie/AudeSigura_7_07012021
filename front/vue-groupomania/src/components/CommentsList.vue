@@ -6,33 +6,38 @@
       v-for="comment in comments"
       :key="comment.id"
     >
-      <Avatar
-        v-if="comment.owner.avatar == 'null'"
-        :src="'user-circle-solid.png'"
-        class="avatar"
-      />
-      <Avatar v-else :src="comment.owner.avatar" class="avatar" />
+      <div class="row card-header">
+        <Avatar
+          v-if="comment.owner.avatar == 'null'"
+          :src="'user-circle-solid.png'"
+          class="avatar"
+        />
+        <Avatar v-else :src="comment.owner.avatar" class="avatar" />
 
-      <div class="fw-bold">
-        {{ comment.owner.userName }}
-        <small class="text-muted mx-3 fw-normal">
-          le {{ dateFormat(comment.createdAt) }} :
-        </small>
+        <div class="fw-bold">
+          {{ comment.owner.userName }}
+          <small class="text-muted mx-3 fw-normal">
+            le {{ dateFormat(comment.createdAt) }} :
+          </small>
+        </div>
       </div>
-
-      {{ comment.content }}
-      <DeleteCommentBtn
-        :comment="comment"
-        @comment-deleted="handleCommentDeleted"
-      />
-
-      <UpdateCommentBtn
-        :comment="comment"
-        @comment-updated="handleCommentUpdated"
-      />
-
-
-      
+      <div class="card-body">
+        {{ comment.content }}
+      </div>
+      <div class="row m-0 justify-content-center">
+        <div class="col-4 mx-auto col-sm-4">
+          <DeleteCommentBtn
+            :comment="comment"
+            @comment-deleted="handleCommentDeleted"
+          />
+        </div>
+        <div class="col-4 mx-auto col-sm-4">
+          <UpdateCommentBtn
+            :comment="comment"
+            @comment-updated="handleCommentUpdated"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
