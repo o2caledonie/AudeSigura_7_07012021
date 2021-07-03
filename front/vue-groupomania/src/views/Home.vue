@@ -1,22 +1,21 @@
 <template>
-  <div class="home">
+  <div class="home container mx-auto p-3">
     <img
-      class="home__logo"
+      class="img-fluid"
       src="../assets/logo-long.png"
-      alt="Logo de Groupomania"
+      alt="Logo Groupomania"
     />
 
-    <div class="home__login">
-      <form @submit.prevent="login" class="home__login__form">
-        <h4 class="home__login__form__title">Se connecter</h4>
+    <div class="card home shadow mx-auto my-4 p-3">
+      <form @submit.prevent="login" class="card-body">
+        <h1 class="card-title fw-bold">Se connecter</h1>
+        <p class="form-text">*Tous les champs sont obligatoires</p>
 
-        <div class="home__login__form__input">
-          <label for="mail" class="home__login__form__input__label"
-            >Email</label
-          >
+        <div class="row mb-3 param">
+          <label for="mail" class="form-label fw-bold">Email</label>
           <input
             type="email"
-            class="form-control"
+            class="form-control mx-auto"
             placeholder="Votre adresse email"
             v-model="email"
             id="email"
@@ -26,13 +25,11 @@
           />
         </div>
 
-        <div class="home__login__form__input">
-          <label for="password" class="home__login__form__input__label"
-            >Mot de passe</label
-          >
+        <div class="row mb-3 param">
+          <label for="password" class="form-label fw-bold">Mot de passe</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control mx-auto"
             placeholder="Votre mot de passe"
             v-model="password"
             id="password"
@@ -42,13 +39,13 @@
           />
         </div>
 
-        <button type="submit" class="home__login__form__button">
+        <button type="submit" class="btn btn-outline-danger fw-bold login my-3">
           Connexion
         </button>
 
         <p>
           Vous n'avez pas encore de compte ?
-          <router-link to="/signup" class="home__login__form__signup"
+          <router-link to="/signup" class="subscribe-link"
             >S'inscrire</router-link
           >
         </p>
@@ -96,73 +93,34 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  &__logo {
-    @media (max-width: 930px) {
-      max-width: 300px;
-      width: 90%;
-      margin-top: 3rem;
-    }
-  }
-  &__login {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: space-around;
-    @media (max-width: 930px) {
-      display: flex;
-      flex-direction: column-reverse;
-    }
-    &__form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 500px;
-      width: 90%;
-      border: 3px solid #FD2D01;
-      border-radius: 25px;
-      margin-top: 2rem;
-      margin-left: -2rem;
-      padding: 1rem;
-      @media (max-width: 930px) {
-        min-width: 250px;
-        margin: auto;
-      }
-      &__title {
-        margin-bottom: 3rem;
-        font-size: 27px;
-      }
-      &__input {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-        width: 70%;
-        &__label {
-          text-align: start;
-          font-weight: bolder;
+    max-width: 800px;
+    .param {
+      .form-control {
+        max-width: 400px;
+        &:focus,
+        &:hover {
+          border-color: #fd2d01;
+          box-shadow: 0 0 0.2em 0.2em #fd2d01;
         }
       }
-      &__button {
-        border: 3px solid #3f3d56;
-        border-radius: 25px;
-        color: #3f3d56;
-        font-size: 15px;
-        font-weight: bold;
-        padding: 0.9rem;
-        margin: 1rem;
-        outline-style: none;
-        &:hover,
-        &:focus {
-          border: 3px solid #ff6363;
-          color: #ff6363;
-          cursor: pointer;
-        }
+    }
+    .login {
+      border: 0.2em solid #fd2d01;
+      transform: scale(1);
+      transition: transform 200ms ease-in-out !important;
+      &:hover {
+        border-color: #fd2d01;
+        box-shadow: 0 0 0em 0em #fd2d01;
+        transform: scale(1.2);
       }
-      &__signup {
+    }
+    .subscribe-link {
+      color: #fd2d01;
+      &:focus,
+      &:hover {
         font-weight: bold;
-        text-decoration: none;
-        color: #e60a0a;
-        // color: #ff6363;
       }
     }
   }
-}
+
 </style>
