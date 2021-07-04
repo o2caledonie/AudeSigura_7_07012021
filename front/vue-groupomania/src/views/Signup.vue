@@ -51,7 +51,7 @@
             name="password"
             autocomplete="current-password"
             pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-            title="Le mot de passe doit contenir minimum 8 caractères avec au minimum unle lettre minuscule et une majuscule, un chiffre et un caractère spécial !@#$%^&*"
+            title="minimum 8 caractères avec au minimum une minuscule et une majuscule, un chiffre et un caractère spécial !@#$%^&*"
             required
           />
         </div>
