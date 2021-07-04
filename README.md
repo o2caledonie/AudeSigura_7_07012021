@@ -30,7 +30,7 @@ Clone this repo.
 ### From within the "back" directory: ###
 
 1) run `npm install`
-2) add the configuration of your database in the 'config/config.json' file
+2) add the configuration of your database in the 'config/config.json' file and add a key in the '.env' file.
 3) run the following commands to set up the database as well as the tables : 
 `npx sequelize-cli db:create`
 `npx sequelize-cli db:migrate`
@@ -39,10 +39,10 @@ Clone this repo.
 3) run `npm sart`. The server should listen on port 3000.
 
 
-### From within the "front" directory: ###
+### From within the "front/vue-groupomania" directory : ###
 
 1) run `npm install`
-2) run `ng serve`. The server should run on `localhost` with default port `8080`. 
+2) run `npm run serve`. The server should run on `localhost` with default port `8080`. 
 3) go to your web browser and type the following address : http://localhost:8080 
 
 
