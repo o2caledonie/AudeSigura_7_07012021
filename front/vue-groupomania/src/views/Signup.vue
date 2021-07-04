@@ -19,8 +19,9 @@
             v-model="userName"
             id="username"
             name="username"
-            attribute="username"
-            pattern="{3,25}"
+            autocomplete="username"
+            minlength="3"
+            maxlength="25"
             title="3 à 25 caractères"
             aria-describedby="usernameHelp"
             required
@@ -35,7 +36,7 @@
             v-model="email"
             id="mail"
             name="mail"
-            attribute="username"
+            autocomplete="username"
             required
           />
         </div>
@@ -48,8 +49,9 @@
             v-model="password"
             id="password"
             name="password"
-            attribute="current-password"
-            pattern="{(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$}"
+            autocomplete="current-password"
+            pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+            title="minimum 8 caractères avec au minimum une minuscule et une majuscule, un chiffre et un caractère spécial !@#$%^&*"
             required
           />
         </div>
