@@ -17,7 +17,7 @@ exports.signup = (req, res, next) => {
 
     // Checks if the password is 8 characters long and contains a lowercase, an uppercase, a number and a special character
     if (!/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(req.body.password)) {
-        return res.status(400).json({ error: 'Le mot de passe doit contenir minimum 8 cara, avec au minimum une lettre minuscule et une lettre majuscule, un chiffre et un caractère spécial !@#$%^&*' })
+        return res.status(400).json({ error: 'Le mot de passe doit contenir minimum 8 caractères avec au minimum une lettre minuscule et une majuscule, un chiffre et un caractère spécial !@#$%^&*' })
     };
 
     // Checks if the username contains minimum 3 and maximum 25 characters
