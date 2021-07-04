@@ -9,7 +9,7 @@
       <div class="row card-header">
         <Avatar
           v-if="comment.owner.avatar == 'null'"
-          :src="'user-circle-solid.png'"
+          :src="'/user-circle-solid.png'"
           class="avatar"
         />
         <Avatar v-else :src="comment.owner.avatar" class="avatar" />

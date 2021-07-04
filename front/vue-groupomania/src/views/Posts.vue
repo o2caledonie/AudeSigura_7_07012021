@@ -8,7 +8,7 @@
         <div class="user-avatar">
           <ProfileImage
             v-if="avatar == 'null'"
-            :src="'user-circle-solid.png'"
+            :src="'/user-circle-solid.png'"
             class="newPost__photo"
           />
           <ProfileImage v-else :src="avatar" class="newPost__photo" />

@@ -5,7 +5,7 @@
         <div class="card-header d-flex">
           <Avatar
             v-if="post.owner.avatar == 'null'"
-            :src="'user-circle-solid.svg'"
+            :src="'/user-circle-solid.svg'"
             class="avatar"
           />
           <Avatar v-else :src="post.owner.avatar" class="avatar" />
